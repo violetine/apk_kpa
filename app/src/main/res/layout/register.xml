@@ -114,5 +114,5 @@
         android:layout_weight="0.36"
         android:textColor="#000"
         android:textStyle="bold"
-        android:onClick="loged_in"/>/>
+        android:onClick="loged_in"/>
 </LinearLayout>
