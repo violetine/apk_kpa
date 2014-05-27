@@ -43,4 +43,7 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(new Intent(this, Register.class));
     }
+    public void test(View view){
+        startActivity(new Intent(this, admin_loged.class));
+    }
 }

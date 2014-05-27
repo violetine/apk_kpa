@@ -69,7 +69,8 @@
         android:layout_marginTop="20dip"
         android:text="Prisijungti"
         android:layout_weight="0.37"
-        android:background="#f2e2cd" />
+        android:background="#f2e2cd"
+        android:onClick="test" />
 
     <!--registracija-->
     <Button
