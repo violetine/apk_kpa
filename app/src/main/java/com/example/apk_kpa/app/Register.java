@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
-import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import lib.User_func;
 
 
 /**
@@ -14,21 +18,15 @@ import org.json.JSONArray;
  */
 public class Register extends Activity {
 
-    JSONParser jsonParser = new JSONParser();
     EditText nick;
     EditText psw;
+    Button RegBtn;
 
-    // url to create new product
-    private static String new_client = "http://mokslai.ger.us.lt/webservice.php";
-
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-
-//    norint sukurti nauja veikianti buttona:
-//    1,xml faile prie button pridedam android:onclick"click(metodo pav, kuris aprasomas veliau mainActivity)"
-//    2,mainActivity aprasom metoda "click" su nuoroda i klase, pvz. Click.class
-//    3,Click klaseje apsirasom kvieciamo loyouto pavadinima, pvz R.layout.click
-//    4,nepamirstam AndroidManifest nurodyti aprasytos click klases : android:activity".click"
+    // JSON Response node names
+    private static String KEY_SUCCESS = "success";
+    private static String KEY_UID = "uid";
+    private static String KEY_NAME = "name";
+    private static String KEY_CREATED_AT = "created_at";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +35,50 @@ public class Register extends Activity {
 
         nick = (EditText) findViewById(R.id.nick);
         psw = (EditText) findViewById(R.id.psw);
+        RegBtn = (Button) findViewById(R.id.RegBtn);
 
-    }
+        // Register Button Click event
+        RegBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String name = nick.getText().toString();
+                String password = psw.getText().toString();
+                User_func userFunction = new User_func();
+                JSONObject json = userFunction.registerUser(name, password);
 
-    //metodas logedIn klases iskvietimui
-    public void loged_in (View view2) {
+                // check for login response
 
-        startActivity(new Intent(this, LogedIn.class));
-    }
+                if (KEY_SUCCESS != null) {
+                    // registerErrorMsg.setText("");
+                    String res = KEY_SUCCESS;
+                    if (Integer.parseInt(res) == 1) {
 
-    //sutvarkyti nuo sitos vietos
-    protected String doInBackground(String... args) {
-        String name = nick.getText().toString();
-        String pass = psw.getText().toString();
+                        try {
+                            JSONObject json_user = json.getJSONObject("user");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
 
-        JSONArray json = jsonParser.getJSONFromUrl(new_client);
+
+        });
 
 
-        try {
-           // int success = json.getInt(TAG_SUCCESS);
+//
+//                                db.addUser(json_user.getString(KEY_NAME), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
+//                                finish();
+//                            }else{
+//                                // Error in registration
+//                                registerErrorMsg.setText("Error occured in registration");
+//
 
-           // if (success == 1) {
 
-                Intent i = new Intent(getApplicationContext(), Register.class);
-                startActivity(i);
-               // finish();
+        //metodas logedIn klases iskvietimui
 
-//            } else {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+//                public void loged_in(View view2) {
+//                    startActivity(new Intent(this, LogedIn.class));
+//                }
+//            }
     }
 }
