@@ -1,15 +1,15 @@
 package com.example.apk_kpa.app;
-
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -18,9 +18,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,7 +38,6 @@ public class Register extends Activity {
     String psw;
     String rePsw;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +53,7 @@ public class Register extends Activity {
         Button regBtn = (Button) findViewById(R.id.regBtn);
 
         regBtn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onClick(View v) {
 
@@ -66,24 +63,48 @@ public class Register extends Activity {
                 email = e_email.getText().toString();
                 miestas = e_miestas.getText().toString();
                 psw = e_psw.getText().toString();
-                rePsw = e_rePsw.toString();
+                rePsw = e_rePsw.getText().toString();
+
+                if((nick.isEmpty()) || (name.isEmpty()) || (email.isEmpty()) || (miestas.isEmpty()) || (psw.isEmpty()) || (rePsw.isEmpty())) {
+
+                    // pranesimas useriui
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
 
-                RegisterTask log = new RegisterTask();
-                log.execute(url);
+                } else {
+
+                    // check ar sutampa ivesti password
+                    if (psw.equals(rePsw)) {
+
+                        RegisterTask log = new RegisterTask();
+                        log.execute(url);
+                    } else{
+
+                        // pranesimas useriui
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+
+                }
             }
         });
-    }
-
-    public void log_in(View view) {
-
-        startActivity(new Intent(this, LogedIn.class));
     }
 
     // klase prisijungimui prie webservo
     public class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
-        public RegisterTask(){};
+        public RegisterTask() {
+        }
+
+        ;
 
         InputStream is = null;
         String line = null;
@@ -92,12 +113,13 @@ public class Register extends Activity {
         @Override
         protected Boolean doInBackground(String... url) {
 
-            boolean good = false;
+            boolean goo = false;
 
             // prisijungimo aprasymas
             HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://mokslai.ger.us.lt/registracija.php");
 
+            try{
 
             // (string) reiksmiu suvarymas i array
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -107,70 +129,69 @@ public class Register extends Activity {
             nameValuePairs.add(new BasicNameValuePair("email", email));
             nameValuePairs.add(new BasicNameValuePair("miestas", miestas));
             nameValuePairs.add(new BasicNameValuePair("psw", psw));
-            nameValuePairs.add(new BasicNameValuePair("rePsw", rePsw));
 
-            try {
 
-                // bandom jungtis
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
+                    // bandom jungtis
+                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
 
-                // isvedimas LogCat konsolej (debugui)
-                Log.e("prisijungimas", "connection success ");
+                    // isvedimas LogCat konsolej (debugui)
+                    Log.e("prisijungimas", "connection success ");
 
-                try {
+                    try {
 
-                    BufferedReader reader = new BufferedReader
-                            (new InputStreamReader(is, "iso-8859-1"), 8);
-                    StringBuilder sb = new StringBuilder();
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    is.close();
-                    result = sb.toString();
-                    Log.e("prisijungimas:", "connection success ");
-
-                    // ne tuscias masyvas
-                    if ( nameValuePairs.isEmpty()) {
-
-                        // pranesimas useriui
-                         runOnUiThread(new Runnable() {
-                             public void run() {
-                                Toast.makeText(getApplicationContext(), "Klaida! Bandykite iš naujo!", Toast.LENGTH_LONG).show();
-
-                             }
-                          });
-                    } else {
+                        BufferedReader reader = new BufferedReader
+                                (new InputStreamReader(is, "iso-8859-1"), 8);
+                        StringBuilder sb = new StringBuilder();
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+                        is.close();
+                        result = sb.toString();
+                        Log.e("prisijungimas:", "connection success ");
 
                         // pranesimas useriui
                         runOnUiThread(new Runnable() {
-                              public void run() {
+                            public void run() {
+
                                 Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote!", Toast.LENGTH_LONG).show();
-                              }
-                          });
+                                runOnUiThread(new Runnable() {
+
+                                    // logedIn klases iskvietimas
+                                    public void run() {
+                                        Intent intent = new Intent(Register.this, LogedIn.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        Log.e("prisijungimas fail 2", e.toString());
                     }
 
                 } catch (Exception e) {
-                    Log.e("prisijungimas fail 2", e.toString());
+
+                    Log.e("fail", e.toString());
+
+                    // pranesimas useriui
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "No connection! arba tusti laukai", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
-
-            } catch (Exception e) {
-
-                Log.e("fail", e.toString());
-
-                // pranesimas useriui
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Prisijungti nepavyko!", Toast.LENGTH_LONG).show();
-                    }
-                });
+                return goo;
             }
-            return good;
+
         }
     }
-}
+
+
+
+
 
 
 
