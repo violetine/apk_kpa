@@ -18,10 +18,6 @@
         </activity>
         <activity android:name="com.example.apk_kpa.app.Register" />
         <activity android:name="com.example.apk_kpa.app.LogedIn" />
-        <activity
-            android:name="com.example.apk_kpa.app.admin_loged"
-            android:label="@string/title_activity_admin_loged" >
-        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

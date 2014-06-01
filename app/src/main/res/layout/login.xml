@@ -70,7 +70,7 @@
         android:text="Prisijungti"
         android:layout_weight="0.37"
         android:background="#f2e2cd"
-        android:onClick="test" />
+        android:onClick="log_in" />
 
     <!--registracija-->
     <Button

@@ -108,7 +108,7 @@
         android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:text="Registruotis"
-        android:id="@+id/RegBtn"
+        android:id="@+id/regBtn"
         android:background="#f2e2cd"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.36"
