@@ -113,7 +113,7 @@ public class Register extends Activity {
         @Override
         protected Boolean doInBackground(String... url) {
 
-            boolean good = false;
+            boolean goo = false;
 
             // prisijungimo aprasymas
             HttpClient httpclient = new DefaultHttpClient();
@@ -183,7 +183,7 @@ public class Register extends Activity {
                         }
                     });
                 }
-                return good;
+                return goo;
             }
 
         }
