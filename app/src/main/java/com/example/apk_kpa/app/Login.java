@@ -15,7 +15,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 //import org.json.JSONArray;
@@ -24,8 +23,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import org.apache.http.util.EntityUtils;
+import android.app.ProgressDialog;
+import static android.app.ProgressDialog.*;
 
 
 /**
@@ -39,6 +38,8 @@ public class Login extends Activity {
     String code;
     String name;
     String passwd;
+    String dialog_title = null;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -57,6 +58,8 @@ public class Login extends Activity {
             @Override
             public void onClick(View v) {
 
+                //start the progress dialog
+                progressDialog = ProgressDialog.show(Login.this, dialog_title, "Kraunasi...");
                 // priskiriam string reiksmes
 //                code = Integer.parseInt(e_code.getText().toString());
                 code = e_code.getText().toString();
@@ -124,6 +127,7 @@ public class Login extends Activity {
 
                 try {
 
+                    Thread.sleep(1000);
                     BufferedReader reader = new BufferedReader
                             (new InputStreamReader(is, "iso-8859-1"), 8);
                     StringBuilder sb = new StringBuilder();
@@ -143,6 +147,8 @@ public class Login extends Activity {
                         // pranesimas useriui
                         runOnUiThread(new Runnable() {
                             public void run() {
+                                // dismiss the progress dialog
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Neužpildyti visi laukai !", Toast.LENGTH_LONG).show();
 
                             }
@@ -157,12 +163,16 @@ public class Login extends Activity {
                                     Intent intent = new Intent(Login.this,LogedIn.class);
 //                                intent.putExtra("name",name);
                                     startActivity(intent);
+                                    progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
+
                                 }
                             });
                         }else {
                             runOnUiThread(new Runnable() {
                                 public void run() {
+                                    // dismiss the progress dialog
+                                    progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas neegzistuoja !", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -180,6 +190,8 @@ public class Login extends Activity {
                 // pranesimas useriui
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        // dismiss the progress dialog
+                        progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Prisijungti nepavyko!", Toast.LENGTH_LONG).show();
                     }
                 });
