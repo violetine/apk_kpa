@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.apk_kpa.app.Register" />
-        <activity android:name=".LogedIn" />
+        <activity android:name="com.example.apk_kpa.app.LogedIn" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
