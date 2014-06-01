@@ -15,6 +15,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 //import org.json.JSONArray;
@@ -23,6 +24,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.apache.http.util.EntityUtils;
 
 
 /**
@@ -47,6 +50,7 @@ public class Login extends Activity {
         final EditText e_code = (EditText) findViewById(R.id.code);
         final EditText e_name = (EditText) findViewById(R.id.name);
         final EditText e_password = (EditText) findViewById(R.id.passw);
+
         Button logBtn = (Button) findViewById(R.id.loginBtn);
 
         logBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +98,7 @@ public class Login extends Activity {
 //            boolean good = false;
 
             // prisijungimo aprasymas
-            HttpClient httpclient = new DefaultHttpClient();
+            final HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://laisvasplotas.eu/android/login_ws.php");
 
 
@@ -102,7 +106,7 @@ public class Login extends Activity {
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
 //            nameValuePairs.add(new BasicNameValuePair("code", Integer.toString(code)));
-//            nameValuePairs.add(new BasicNameValuePair("code", code));
+            nameValuePairs.add(new BasicNameValuePair("code", code));
             nameValuePairs.add(new BasicNameValuePair("name", name));
             nameValuePairs.add(new BasicNameValuePair("passw", passwd));
 
@@ -114,6 +118,7 @@ public class Login extends Activity {
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
 
+
                 // isvedimas LogCat konsolej (debugui)
                 Log.e("prisijungimas", "connection success #1");
 
@@ -123,33 +128,45 @@ public class Login extends Activity {
                             (new InputStreamReader(is, "iso-8859-1"), 8);
                     StringBuilder sb = new StringBuilder();
                     while ((line = reader.readLine()) != null) {
-                        sb.append(line).append("\n");
+                        sb.append(line);
                     }
                     is.close();
                     result = sb.toString();
+                    Log.e("Result: ",result);
+
                     Log.e("prisijungimas:", "connection success #2");
 
-                    // tuscias masyvas
-                    if ( nameValuePairs.isEmpty()) {
+
+                    // tusti laukai
+                    if (passwd.length() == 0 || name.length() == 0 || code.length() == 0) {
 
                         // pranesimas useriui
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast.makeText(getApplicationContext(), "Klaida! Bandykite iš naujo !", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Neužpildyti visi laukai !", Toast.LENGTH_LONG).show();
 
                             }
                         });
                     } else {
 
                         // pranesimas useriui
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Intent intent = new Intent(Login.this,LogedIn.class);
+                        if(result.equals("1")) {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+
+                                    Intent intent = new Intent(Login.this,LogedIn.class);
 //                                intent.putExtra("name",name);
-                                startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
-                            }
-                        });
+                                    startActivity(intent);
+                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }else {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas neegzistuoja !", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
                     }
 
                 } catch (Exception e) {
