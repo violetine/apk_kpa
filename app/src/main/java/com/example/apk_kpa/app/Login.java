@@ -102,7 +102,7 @@ public class Login extends Activity {
 
             // prisijungimo aprasymas
             final HttpClient httpclient = new DefaultHttpClient();
-            final HttpPost httppost = new HttpPost("http://laisvasplotas.eu/android/login_ws.php");
+            final HttpPost httppost = new HttpPost("http://mokslai.ger.us.lt/login_ws.php");
 
 
             // (string/integer) reiksmiu suvarymas i array
