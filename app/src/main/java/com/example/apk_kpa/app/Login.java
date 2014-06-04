@@ -168,14 +168,29 @@ public class Login extends Activity {
 
                                 }
                             });
-                        }else {
+                        }else if(result.equals("2")) {
+
                             runOnUiThread(new Runnable() {
                                 public void run() {
-                                    // dismiss the progress dialog
+//                                    Intent intent = new Intent(Login.this,LogedIn.class);
+//                                intent.putExtra("name",name);
+//                                    startActivity(intent);
+                                    setContentView(R.layout.loged_in_admin);
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas neegzistuoja !", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
                                 }
                             });
+
+
+                        } else {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                // dismiss the progress dialog
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas neegzistuoja !", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                         }
                     }
 
