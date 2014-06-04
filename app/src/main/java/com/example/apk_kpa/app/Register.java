@@ -29,7 +29,6 @@ import java.util.ArrayList;
  */
 public class Register extends Activity {
 
-
     String url = null;
     String name;
     String nick;
@@ -65,46 +64,16 @@ public class Register extends Activity {
                 psw = e_psw.getText().toString();
                 rePsw = e_rePsw.getText().toString();
 
-                if((nick.isEmpty()) || (name.isEmpty()) || (email.isEmpty()) || (miestas.isEmpty()) || (psw.isEmpty()) || (rePsw.isEmpty())) {
-
-                    // pranesimas useriui
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-
-                } else {
-
-                    // check ar sutampa ivesti password
-                    if (psw.equals(rePsw)) {
-
-                        RegisterTask log = new RegisterTask();
-                        log.execute(url);
-                    } else{
-
-                        // pranesimas useriui
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-
-
-                }
-            }
+                RegisterTask log = new RegisterTask();
+                log.execute(url);
+            };
         });
     }
 
     // klase prisijungimui prie webservo
     public class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
-        public RegisterTask() {
-        }
-
-        ;
+        public RegisterTask() { };
 
         InputStream is = null;
         String line = null;
@@ -119,16 +88,16 @@ public class Register extends Activity {
             HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://mokslai.ger.us.lt/registracija.php");
 
-            try{
+            try {
 
-            // (string) reiksmiu suvarymas i array
-            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                    // (string) reiksmiu suvarymas i array
+                    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
-            nameValuePairs.add(new BasicNameValuePair("nick", nick));
-            nameValuePairs.add(new BasicNameValuePair("name", name));
-            nameValuePairs.add(new BasicNameValuePair("email", email));
-            nameValuePairs.add(new BasicNameValuePair("miestas", miestas));
-            nameValuePairs.add(new BasicNameValuePair("psw", psw));
+                    nameValuePairs.add(new BasicNameValuePair("nick", nick));
+                    nameValuePairs.add(new BasicNameValuePair("name", name));
+                    nameValuePairs.add(new BasicNameValuePair("email", email));
+                    nameValuePairs.add(new BasicNameValuePair("miestas", miestas));
+                    nameValuePairs.add(new BasicNameValuePair("psw", psw));
 
 
                     // bandom jungtis
@@ -145,49 +114,61 @@ public class Register extends Activity {
                         BufferedReader reader = new BufferedReader
                                 (new InputStreamReader(is, "iso-8859-1"), 8);
                         StringBuilder sb = new StringBuilder();
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line + "\n");
-                        }
-                        is.close();
-                        result = sb.toString();
-                        Log.e("prisijungimas:", "connection success ");
 
-                        // pranesimas useriui
-                        runOnUiThread(new Runnable() {
-                            public void run() {
+                        if ((nick.equals("")) || (name.equals("")) || (email.equals("")) || (miestas.equals("")) || (psw.equals("")) || (rePsw.equals("") || (!(psw.equals(rePsw))))) {
 
-                                Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote!", Toast.LENGTH_LONG).show();
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }else {
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line + "\n");
+                            }
+                            is.close();
+                            result = sb.toString();
+                            Log.e("prisijungimas:", "connection success ");
+
+                            if (result.equals("1")) {
+
+                                // pranesimas useriui
                                 runOnUiThread(new Runnable() {
-
-                                    // logedIn klases iskvietimas
                                     public void run() {
-                                        Intent intent = new Intent(Register.this, LogedIn.class);
-                                        startActivity(intent);
+                                        Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote!", Toast.LENGTH_LONG).show();
+
+                                        // logedIn klases iskvietimas
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                Intent intent = new Intent(Register.this, LogedIn.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                });
+                            }else{
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
-                        });
-
-                    } catch (Exception e) {
+                        }
+                    }catch (Exception e) {
                         Log.e("prisijungimas fail 2", e.toString());
                     }
-
-                } catch (Exception e) {
-
-                    Log.e("fail", e.toString());
-
-                    // pranesimas useriui
+                }catch(Exception e){
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(getApplicationContext(), "No connection! arba tusti laukai", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "No connection!", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
-                return goo;
-            }
-
+            return goo;
         }
     }
+}
+
 
 
 
