@@ -1,6 +1,7 @@
 package com.example.apk_kpa.app;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -36,6 +37,8 @@ public class Register extends Activity {
     String miestas;
     String psw;
     String rePsw;
+    String dialog_title = null;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class Register extends Activity {
             @Override
             public void onClick(View v) {
 
+                //start the progress dialog
+                progressDialog = ProgressDialog.show(Register.this, dialog_title, "Kraunasi...");
                 // priskiriam string reiksmes
                 nick = e_nick.getText().toString();
                 name = e_name.getText().toString();
@@ -111,6 +116,7 @@ public class Register extends Activity {
 
                     try {
 
+                        Thread.sleep(1000);
                         BufferedReader reader = new BufferedReader
                                 (new InputStreamReader(is, "iso-8859-1"), 8);
                         StringBuilder sb = new StringBuilder();
@@ -119,6 +125,8 @@ public class Register extends Activity {
 
                             runOnUiThread(new Runnable() {
                                 public void run() {
+                                    // dismiss the progress dialog
+                                    progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Klaida! Blogai įvesti duomenys!", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -137,6 +145,8 @@ public class Register extends Activity {
                             Log.e("Result of 1: ",result);
                                         Intent intent = new Intent(Register.this,LogedIn.class);
                                         startActivity(intent);
+                                        // dismiss the progress dialog
+                                        progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote !", Toast.LENGTH_LONG).show();
 
                                     }
@@ -146,6 +156,8 @@ public class Register extends Activity {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         // dismiss the progress dialog
+                                        // dismiss the progress dialog
+                                        progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
                                     }
                                 });
@@ -159,6 +171,8 @@ public class Register extends Activity {
                 }catch(Exception e){
                     runOnUiThread(new Runnable() {
                         public void run() {
+                            // dismiss the progress dialog
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "No connection!", Toast.LENGTH_LONG).show();
                         }
                     });
