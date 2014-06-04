@@ -130,28 +130,28 @@ public class Register extends Activity {
                             result = sb.toString();
                             Log.e("prisijungimas:", "connection success ");
 
-                            if (result.equals("1")) {
-                                Log.e("Result: ",result);
-                                // pranesimas useriui
+                            // pranesimas useriui
+                            if(result.equals("false")) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote!", Toast.LENGTH_LONG).show();
-
-                                        // logedIn klases iskvietimas
-
-                                                Intent intent = new Intent(Register.this, LogedIn.class);
-                                                startActivity(intent);
+                            Log.e("Result of 1: ",result);
+                                        Intent intent = new Intent(Register.this,LogedIn.class);
+                                        startActivity(intent);
+                                        Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote !", Toast.LENGTH_LONG).show();
 
                                     }
                                 });
-                            }else{
-                                Log.e("Result: ",result);
+                            }else {
+                                Log.e("Result of 0: ",result);
                                 runOnUiThread(new Runnable() {
                                     public void run() {
+                                        // dismiss the progress dialog
                                         Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
+
+
                         }
                     }catch (Exception e) {
                         Log.e("prisijungimas fail 2", e.toString());
