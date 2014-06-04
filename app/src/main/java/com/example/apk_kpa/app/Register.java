@@ -131,22 +131,21 @@ public class Register extends Activity {
                             Log.e("prisijungimas:", "connection success ");
 
                             if (result.equals("1")) {
-
+                                Log.e("Result: ",result);
                                 // pranesimas useriui
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote!", Toast.LENGTH_LONG).show();
 
                                         // logedIn klases iskvietimas
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
+
                                                 Intent intent = new Intent(Register.this, LogedIn.class);
                                                 startActivity(intent);
-                                            }
-                                        });
+
                                     }
                                 });
                             }else{
+                                Log.e("Result: ",result);
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
