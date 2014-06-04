@@ -107,7 +107,7 @@ public class Register extends Activity {
                     is = entity.getContent();
 
                     // isvedimas LogCat konsolej (debugui)
-                    Log.e("prisijungimas", "connection success ");
+                    Log.e("prisijungimas", "connection success #1");
 
                     try {
 
@@ -124,11 +124,11 @@ public class Register extends Activity {
                             });
                         }else {
                             while ((line = reader.readLine()) != null) {
-                                sb.append(line + "\n");
+                                sb.append(line);
                             }
                             is.close();
                             result = sb.toString();
-                            Log.e("prisijungimas:", "connection success ");
+                            Log.e("prisijungimas:", "connection success #2");
 
                             // pranesimas useriui
                             if(result.equals("false")) {
