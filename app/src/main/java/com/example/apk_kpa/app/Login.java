@@ -172,10 +172,9 @@ public class Login extends Activity {
 
                             runOnUiThread(new Runnable() {
                                 public void run() {
-//                                    Intent intent = new Intent(Login.this,LogedIn.class);
+                                    Intent intent = new Intent(Login.this,Admin.class);
 //                                intent.putExtra("name",name);
-//                                    startActivity(intent);
-                                    setContentView(R.layout.loged_in_admin);
+                                    startActivity(intent);
                                     progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
                                 }
