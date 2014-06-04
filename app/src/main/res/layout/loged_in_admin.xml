@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7c797"
+    android:background="#ffe5e5e5"
     android:weightSum="1">
 
      <RelativeLayout
@@ -27,13 +27,13 @@
         <Button
             android:id = "@+id/kurtiApklausaBtn"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_height="65dp"
             android:text = "Sukurti apklausa"
-
             android:textSize="30dp"
-            android:textStyle="bold"
             android:layout_alignParentTop="true"
-            android:background="#f2e2cd"> </Button>
+            android:background="#ff33b5e5"
+            android:textColor="#ffffffff"
+            android:textStyle="bold"> </Button>
 
     </RelativeLayout>
 

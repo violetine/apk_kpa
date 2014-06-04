@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="10dip"
     android:weightSum="1"
-    android:background="#d7c797"
+    android:background="#ffe5e5e5"
     android:baselineAligned="false">
     <TextView
         android:layout_width="156dp"
@@ -19,7 +19,11 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Įveskite kodą:" />
+        android:text="Įveskite kodą:"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"
+        android:password="false"
+                                                />
     <!--kodo text field-->
 
     <EditText
@@ -32,7 +36,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:text="Vardas:" />
+        android:text="Vardas:"
+        android:textStyle="bold"
+        android:textColor="#ff5a5a5a" />
     <!--login text field-->
     <EditText
         android:id="@+id/name"
@@ -44,7 +50,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:text="Slaptažodis:" />
+        android:text="Slaptažodis:"
+        android:textStyle="bold"
+        android:textColor="#ff5a5a5a" />
 
     <!--pass text field-->
     <EditText
@@ -69,8 +77,9 @@
         android:layout_marginTop="20dip"
         android:text="Prisijungti"
         android:layout_weight="0.37"
-        android:background="#f2e2cd"
-        />
+        android:background="#ff33b5e5"
+        android:textColor="#ffffffff"
+        android:textStyle="bold" />
 
     <!--registracija-->
     <Button
@@ -78,9 +87,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
-        android:background="#f2e2cd"
+        android:background="#ff33b5e5"
         android:text="Registracija"
         android:textStyle="bold"
         android:layout_weight="0.37"
-        android:onClick="register"/>
+        android:onClick="register"
+        android:textColor="#ffffffff" />
 </LinearLayout>

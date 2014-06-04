@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:weightSum="1"
-    android:background="#d7c797">
+    android:background="#ffe5e5e5">
 
     <TextView
         android:layout_width="156dp"
@@ -20,35 +20,41 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Slapyvardis"
-        android:id="@+id/pswLbl" />
+        android:id="@+id/pswLbl"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/nick" />
+        android:id="@+id/nick"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Vardas"
-        android:id="@+id/VardasLbl" />
+        android:id="@+id/VardasLbl"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/name" />
+        android:id="@+id/name"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="E-paštas"
-        android:id="@+id/EmailLbl" />
+        android:id="@+id/EmailLbl"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -62,7 +68,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Miestas"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -76,7 +84,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Slaptažodis"
-        android:id="@+id/textView3" />
+        android:id="@+id/textView3"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -90,7 +100,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Pakartokite"
-        android:id="@+id/textView4" />
+        android:id="@+id/textView4"
+        android:textColor="#ff5a5a5a"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -111,10 +123,10 @@
         android:layout_height="wrap_content"
         android:text="Registruotis"
         android:id="@+id/regBtn"
-        android:background="#f2e2cd"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.36"
-        android:textColor="#000"
+        android:background="#ff33b5e5"
+        android:textColor="#ffffffff"
         android:textStyle="bold"
         android:onClick="loged_in"/>
 </LinearLayout>
