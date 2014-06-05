@@ -40,6 +40,7 @@ public class Register extends Activity {
     String dialog_title = null;
     ProgressDialog progressDialog;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +145,7 @@ public class Register extends Activity {
                                     public void run() {
                             Log.e("Result of 1: ",result);
                                         Intent intent = new Intent(Register.this,LogedIn.class);
+                                        intent.putExtra("nickas",nick);
                                         startActivity(intent);
                                         // dismiss the progress dialog
                                         progressDialog.dismiss();

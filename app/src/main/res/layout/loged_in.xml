@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Slapyvardis"
-            android:id="@+id/slapPbl"
+            android:id="@+id/lblNick"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -35,22 +35,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/taskaiLbl"
+            android:id="@+id/asd"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="#ff5a5a5a"/>
+            android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Taškai:"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/taskaiLbl"
-            android:textColor="#ff5a5a5a"
-            android:textStyle="bold"/>
     </RelativeLayout>
 
     <ScrollView

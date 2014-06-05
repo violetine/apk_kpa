@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Miestas"
-        android:id="@+id/textView"
+        android:id="@+id/asd"
         android:textColor="#ff5a5a5a"
         android:textStyle="bold"/>
 
