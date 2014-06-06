@@ -176,7 +176,7 @@ public class Login extends Activity {
                                     intent.putExtra("nickas",name);
                                     startActivity(intent);
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Sveikinu prisijungus,"+name+"!", Toast.LENGTH_LONG).show();
                                 }
                             });
 

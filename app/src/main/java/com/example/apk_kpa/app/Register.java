@@ -149,7 +149,7 @@ public class Register extends Activity {
                                         startActivity(intent);
                                         // dismiss the progress dialog
                                         progressDialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote !", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), nick+", sėkmingai užsiregistravai !", Toast.LENGTH_LONG).show();
 
                                     }
                                 });
@@ -160,7 +160,7 @@ public class Register extends Activity {
                                         // dismiss the progress dialog
                                         // dismiss the progress dialog
                                         progressDialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Vartotojas "+nick+" jau egzistuoja!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
