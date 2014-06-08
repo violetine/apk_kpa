@@ -3,7 +3,7 @@
 
     <string name="app_name">Apklausa</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Nustatymai</string>
     <string name="title_activity_admin_loged">admin_loged</string>
     <string name="open">List</string>
     <string name="close">Main Page</string>
