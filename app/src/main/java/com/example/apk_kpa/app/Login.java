@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import android.app.ProgressDialog;
-import static android.app.ProgressDialog.*;
+
 
 
 /**
