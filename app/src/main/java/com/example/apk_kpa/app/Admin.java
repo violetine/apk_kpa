@@ -1,6 +1,7 @@
 package com.example.apk_kpa.app;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -32,6 +33,8 @@ public class Admin extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kurti_apklausa);
+        Intent intent = new Intent(Admin.this,FragmentOnLoad.class);
+        startActivity(intent);
 
         ArrayAdapter<String> ad = new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, listContent);
 
