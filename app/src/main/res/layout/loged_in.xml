@@ -58,9 +58,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text = "Apklausa"
-
                 android:textSize="25dp"
-                android:textStyle="bold"> </Button>
+                android:textStyle="bold"
+                android:onClick="start_apk"> </Button>
             <Button
                 android:id = "@+id/apklausa2Btn"
                 android:layout_width="fill_parent"

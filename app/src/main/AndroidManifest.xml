@@ -20,6 +20,7 @@
         <activity android:name="com.example.apk_kpa.app.Login" />
         <activity android:name="com.example.apk_kpa.app.LogedIn" />
         <activity android:name="com.example.apk_kpa.app.Admin" />
+        <activity android:name="com.example.apk_kpa.app.JSONTest" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -1,16 +1,4 @@
 package com.example.apk_kpa.app;
-/**
- * Created by Dofke on 2014-06-08.
- */
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -19,30 +7,36 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
-import com.example.apk_kpa.app.lib.JSONParser;
 
-public class JSONTest extends ListActivity {
-    // Progress Dialog
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Created by VIO on 6/8/2014.
+ */
+public class Apklausa extends ListActivity {
     private ProgressDialog pDialog;
 
-    // Creating JSON Parser object
     JSONParser jsonParser = new JSONParser();
 
     ArrayList<HashMap<String, String>> inboxList;
 
-    // products JSONArray
     JSONArray inbox = null;
 
-    // Inbox JSON url
     private static final String INBOX_URL = "http://mokslai.ger.us.lt/pridetiKlausima.php";
 
-    // ALL JSON node names
     private static final String TAG_MESSAGES = "turinys";
-//    private static final String TAG_ID = "id";
     private static final String TAG_TITLE = "Pavadinimas";
-//    private static final String TAG_EMAIL = "email";
-//    private static final String TAG_SUBJECT = "subject";
-//    private static final String TAG_DATE = "date";
+    private static final String TAG_ATS1 = "Pasirinkimas1";
+    private static final String TAG_ATS2 = "Pasirinkimas2";
+    private static final String TAG_ATS3 = "Pasirinkimas3";
+
 
 
     @Override
@@ -53,9 +47,6 @@ public class JSONTest extends ListActivity {
         // Hashmap for ListView
         inboxList = new ArrayList<HashMap<String, String>>();
 
-
-
-        // Loading INBOX in Background Thread
         new LoadInbox().execute();
     }
 //    @Override
@@ -63,19 +54,14 @@ public class JSONTest extends ListActivity {
 //        new LoadInbox().execute();
 //    }
 
-    /**
-     * Background Async Task to Load all INBOX messages by making HTTP Request
-     * */
     class LoadInbox extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(JSONTest.this);
-            pDialog.setMessage("Loading Inbox ...");
+            pDialog = new ProgressDialog(Apklausa.this);
+            pDialog.setMessage("Kraunasi...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -85,38 +71,34 @@ public class JSONTest extends ListActivity {
          * getting Inbox JSON
          * */
         protected String doInBackground(String... args) {
-            // Building Parameters
+
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET",
                     params);
 
-            // Check your log cat for JSON reponse
-            Log.d("Inbox JSON: ", json.toString());
+            Log.d("JSON: ", json.toString());
 
             try {
                 inbox = json.getJSONArray(TAG_MESSAGES);
-                // looping through All messages
+                // visi duomenys
                 for (int i = 0; i < inbox.length(); i++) {
                     JSONObject c = inbox.getJSONObject(i);
-
-                    // Storing each json item in variable
-//                    String id = c.getString(TAG_ID);
                     String from = c.getString(TAG_TITLE);
-//                    String subject = c.getString(TAG_SUBJECT);
-//                    String date = c.getString(TAG_DATE);
+                    String ats1 = c.getString(TAG_ATS1);
+                    String ats2 = c.getString(TAG_ATS2);
+                    String ats3 = c.getString(TAG_ATS3);
 
-                    // creating new HashMap
+                    // HashMap sukurimas
                     HashMap<String, String> map = new HashMap<String, String>();
 
-                    // adding each child node to HashMap key => value
-//                    map.put(TAG_ID, id);
                     map.put(TAG_TITLE, from);
-//                    map.put(TAG_SUBJECT, subject);
-//                    map.put(TAG_DATE, date);
+                    map.put(TAG_ATS1, ats1);
+                    map.put(TAG_ATS2, ats2);
+                    map.put(TAG_ATS3, ats3);
 
-                    // adding HashList to ArrayList
+                    // HashList to ArrayList
                     inboxList.add(map);
                 }
 
@@ -127,23 +109,21 @@ public class JSONTest extends ListActivity {
             return null;
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
+
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
+            // dismiss
             pDialog.dismiss();
-            // updating UI from Background Thread
+
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
-                     * Updating parsed JSON data into ListView
+                     * Updating JSON data
                      * */
                     ListAdapter adapter = new SimpleAdapter(
-                            JSONTest.this, inboxList,
-                            R.layout.json_list_data, new String[] { TAG_TITLE },
-                            new int[] { R.id.from});
-                    // updating listview
+                            Apklausa.this, inboxList,
+                            R.layout.klausymas, new String[] { TAG_TITLE, TAG_ATS1, TAG_ATS2, TAG_ATS3 },
+                            new int[] { R.id.from, R.id.ats1, R.id.ats2, R.id.ats3});
+
                     setListAdapter(adapter);
 
                 }
@@ -154,4 +134,5 @@ public class JSONTest extends ListActivity {
         }
 
     }
+
 }

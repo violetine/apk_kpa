@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RadioButton
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:text="ats 1"
+            android:id="@+id/ats1"
+            android:layout_above="@+id/ats2"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView" />
+        <RadioButton
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:text="ats 2"
+            android:id="@+id/ats2"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/ats1"
+            android:layout_alignStart="@+id/ats1" />
+        <RadioButton
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:text="ats 3"
+            android:id="@+id/ats3"
+            android:layout_below="@+id/ats2"
+            android:layout_alignLeft="@+id/ats2"
+            android:layout_alignStart="@+id/ats2" />
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:text="Kitas klausymas"
+            android:id="@+id/submit"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/ats3"
+            android:layout_alignEnd="@+id/ats3" />
+
+    </RelativeLayout>
+</LinearLayout>
