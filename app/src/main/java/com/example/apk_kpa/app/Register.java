@@ -148,7 +148,6 @@ public class Register extends Activity {
                                         // dismiss the progress dialog
                                         progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote !", Toast.LENGTH_LONG).show();
-
                                     }
                                 });
                             }else {
@@ -156,14 +155,11 @@ public class Register extends Activity {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         // dismiss the progress dialog
-                                        // dismiss the progress dialog
                                         progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
-
-
                         }
                     }catch (Exception e) {
                         Log.e("prisijungimas fail 2", e.toString());

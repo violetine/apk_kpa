@@ -1,34 +1,6 @@
-package com.example.apk_kpa.app.lib;
-
-/**
- * Created by Dofke on 2014-06-08.
- */
+package com.example.apk_kpa.app;
 
 import android.util.Log;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
-
-/**
- * Created by Dofke on 2014-06-08.
- */
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,8 +14,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
+/**
+ * Created by VIO on 6/7/2014.
+ */
 public class JSONParser {
 
     static InputStream is = null;
@@ -55,18 +35,15 @@ public class JSONParser {
 
     }
 
-    // function get json from url
-    // by making HTTP POST or GET mehtod
+    //  HTTP POST or GET mehtod
     public JSONObject makeHttpRequest(String url, String method,
                                       List<NameValuePair> params) {
 
-        // Making HTTP request
         try {
 
             // check for request method
             if(method == "POST"){
-                // request method is POST
-                // defaultHttpClient
+
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
@@ -109,15 +86,13 @@ public class JSONParser {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
 
-        // try parse the string to a JSON object
+        // JSON object
         try {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
 
-        // return JSON String
         return jObj;
 
-    }
-}
+    }}
