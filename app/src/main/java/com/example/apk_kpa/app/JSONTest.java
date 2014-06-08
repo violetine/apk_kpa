@@ -53,9 +53,15 @@ public class JSONTest extends ListActivity {
         // Hashmap for ListView
         inboxList = new ArrayList<HashMap<String, String>>();
 
+
+
         // Loading INBOX in Background Thread
         new LoadInbox().execute();
     }
+//    @Override
+//    public void onBackPressed(){
+//        new LoadInbox().execute();
+//    }
 
     /**
      * Background Async Task to Load all INBOX messages by making HTTP Request
@@ -139,8 +145,11 @@ public class JSONTest extends ListActivity {
                             new int[] { R.id.from});
                     // updating listview
                     setListAdapter(adapter);
+
                 }
             });
+
+
 
         }
 
