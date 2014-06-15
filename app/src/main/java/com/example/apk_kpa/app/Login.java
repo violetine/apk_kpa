@@ -161,10 +161,10 @@ public class Login extends Activity {
                                 public void run() {
 
                                     Intent intent = new Intent(Login.this,LogedIn.class);
-//                                intent.putExtra("name",name);
+                                    intent.putExtra("nickas",name);
                                     startActivity(intent);
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai prisijungėte !", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), name+", sėkmingai prisijungei !", Toast.LENGTH_LONG).show();
 
                                 }
                             });
