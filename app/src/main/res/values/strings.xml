@@ -22,6 +22,7 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
+        <item>@drawable/ic_pages</item>
     </array>
 
     <!-- Content Description -->
