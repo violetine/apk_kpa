@@ -6,36 +6,45 @@
 
 
         <TextView
-            android:id="@+id/from"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/kl"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:paddingTop="8dip"
             android:paddingLeft="8dip"
             android:paddingBottom="4dip"
             android:textSize="20dip"
             android:textStyle="bold"/>
+    <RadioGroup
+        android:id="@+id/group1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="24dp" >
 
     <RadioButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:text=""
         android:id="@+id/ats1" />
     <RadioButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:text=""
         android:id="@+id/ats2" />
     <RadioButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:text=""
         android:id="@+id/ats3" />
+    </RadioGroup>
 
     <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:text="Kitas klausymas"
-        android:id="@+id/submit" />
+        android:id="@+id/submit"
+        android:onClick="ats"/>
 
 
 

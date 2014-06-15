@@ -1,77 +1,69 @@
-//package com.example.apk_kpa.app.database;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import android.content.ContentValues;
-//import android.content.Context;
-//import android.database.Cursor;
-//import android.database.sqlite.SQLiteDatabase;
-//import android.database.sqlite.SQLiteOpenHelper;
-//
-//public class DatabaseHandler extends SQLiteOpenHelper {
-//
-//    // All Static variables
-//    // Database Version
-//    private static final int DATABASE_VERSION = 1;
-//
-//    // Database Name
-//    private static final String DATABASE_NAME = "ger_vio";
-//
-//    // klausimai table name
-//    private static final String TABLE_QUESTIONS = "klausimai";
-//
-//    // klausimai Table Columns names
-//    private static final String KEY_ID = "id";
-//    private static final String KEY_TITLE = "Pavadinimas";
-//    private static final String KEY_CH1 = "Pasirinkimas1";
+package com.example.apk_kpa.app.database;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.apk_kpa.app.Apklausa;
+
+public class DatabaseHandler extends SQLiteOpenHelper {
+
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "apklausos";
+    private static final String TABLE_APK1 = "klausimai";
+    private static final String KEY_ID = "id";
+    private static final String KEY_KL = "Pavadinimas";
+    private static final String KEY_ATS = "Pasirinkimas1";
 //    private static final String KEY_CH2 = "Pasirinkimas2";
 //    private static final String KEY_CH3 = "Pasirinkimas3";
 //    private static final String KEY_SHOPID = "parduotuvesID";
-//
-//    public DatabaseHandler(Context context) {
-//        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//    }
-//
-//    // Creating Tables
-//    @Override
-//    public void onCreate(SQLiteDatabase db) {
-//        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_QUESTIONS + "("
-//                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT,"
-//                + KEY_CH1 + " TEXT," + KEY_CH2 + " TEXT," + KEY_CH3 + " TEXT, " + KEY_SHOPID + " INTEGER" + ")";
-//        db.execSQL(CREATE_CONTACTS_TABLE);
-//    }
-//
-//    // Upgrading database
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        // Drop older table if existed
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTIONS);
-//
-//        // Create tables again
-//        onCreate(db);
-//    }
-//
-//    /**
-//     * All CRUD(Create, Read, Update, Delete) Operations
-//     */
-//
-//    // Adding new contact
-//    void addQuestion(Question question) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(KEY_TITLE, question.getName()); // Question Title
-//        values.put(KEY_CH1, question.getPhoneNumber()); // Question answer #1
-//        values.put(KEY_CH2, question.getPhoneNumber()); // Question answer #2
-//        values.put(KEY_CH3, question.getPhoneNumber()); // Question answer #3
-//        values.put(KEY_SHOPID, question.getPhoneNumber()); // Question Shop ID
-//
-//
-//        // Inserting Row
-//        db.insert(TABLE_QUESTIONS, null, values);
-//        db.close(); // Closing database connection
-//    }
+
+    public DatabaseHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    // Creating Tables
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_APK1 + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_KL + " TEXT," + KEY_ATS + " TEXT," + ")";
+        db.execSQL(CREATE_CONTACTS_TABLE);
+    }
+
+    // Upgrading database
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_APK1);
+
+        // Create tables again
+        onCreate(db);
+        addApklausa();
+    }
+
+     void addApklausa() {
+
+        Apklausa apk = new Apklausa();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_KL, apk.getKlausymas());
+        values.put(KEY_ATS, apk.getAtsakymas());
+//        values.put(KEY_CH2, question.getPhoneNumber());
+//        values.put(KEY_CH3, question.getPhoneNumber());
+//        values.put(KEY_SHOPID, question.getPhoneNumber());
+
+
+        // Inserting Row
+        db.insert(TABLE_APK1, null, values);
+        db.close();
+    }
+}
 //
 //    // Getting single contact
 //    Question getQuestion(int id) {
@@ -147,4 +139,3 @@
 //        return cursor.getCount();
 //    }
 //
-//}
