@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:padding="10dip"
     android:weightSum="1"
-    android:background="#ffe5e5e5"
     android:baselineAligned="false">
     <TextView
         android:layout_width="156dp"
@@ -22,8 +21,7 @@
         android:text="Įveskite kodą:"
         android:textColor="#ff5a5a5a"
         android:textStyle="bold"
-        android:password="false"
-                                                />
+        android:password="false" />
     <!--kodo text field-->
 
     <EditText
@@ -54,7 +52,8 @@
         android:layout_marginTop="15dip"
         android:text="Slaptažodis:"
         android:textStyle="bold"
-        android:textColor="#ff5a5a5a" />
+        android:textColor="#ff5a5a5a"
+ />
 
     <!--pass text field-->
     <EditText
