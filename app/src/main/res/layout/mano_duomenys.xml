@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:background="#ffe5e5e5">
 
     <LinearLayout
         android:orientation="vertical"
@@ -60,24 +61,23 @@
             android:textSize="30dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+
 
         <Button
             android:id="@+id/loginBtn"
 
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dip"
+            android:layout_height="20dp"
+            android:layout_marginTop="180dip"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip"
+            android:layout_marginBottom="12dip"
             android:text="Keisti slaptažodi"
-            android:layout_weight="0.37"
+            android:layout_weight="0.09"
             android:background="#ff33b5e5"
             android:textColor="#ffffffff"
+
             android:textStyle="bold" />
-        </LinearLayout>
 
 
 </LinearLayout>
