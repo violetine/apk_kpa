@@ -6,7 +6,7 @@
     android:padding="10dip"
     android:weightSum="1"
     android:baselineAligned="false"
-    android:background="#fff">
+    android:background="@drawable/bg_colormix">
     <TextView
         android:layout_width="156dp"
         android:layout_height="47dp"
