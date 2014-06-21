@@ -173,9 +173,11 @@ public class Login extends Activity {
 
                             runOnUiThread(new Runnable() {
                                 public void run() {
+
                                     Intent intent = new Intent(Login.this,Admin.class);
                                     intent.putExtra("nickas",name);
                                     startActivity(intent);
+
                                     progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Sveikinu prisijungus,"+name+"!", Toast.LENGTH_LONG).show();
                                 }

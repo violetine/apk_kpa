@@ -1,11 +1,8 @@
 package com.example.apk_kpa.app;
 
-import com.example.apk_kpa.app.adapter.NavDrawerListAdapter;
-import com.example.apk_kpa.app.model.NavDrawerItem;
-
-import java.util.ArrayList;
 
 import android.app.Activity;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
@@ -21,10 +18,17 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.apk_kpa.app.adapter.NavDrawerListAdapter;
+import com.example.apk_kpa.app.model.NavDrawerItem;
+
+import java.util.ArrayList;
+
+
 /**
  * Created by Dofke on 2014-06-04.
  */
 public class Admin extends Activity {
+
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -45,6 +49,7 @@ public class Admin extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         // Hide the Title Bar
@@ -84,8 +89,8 @@ public class Admin extends Activity {
         mDrawerList.setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setHomeButtonEnabled(true);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
@@ -93,13 +98,13 @@ public class Admin extends Activity {
                 R.string.app_name // nav drawer close - description for accessibility
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+//                getActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+//                getActionBar().setTitle(mDrawerTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
@@ -111,7 +116,6 @@ public class Admin extends Activity {
             displayView(0);
         }
     }
-
     /**
      * Slide menu item click listener
      * */
@@ -196,7 +200,7 @@ public class Admin extends Activity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+//        getActionBar().setTitle(mTitle);
     }
 
     /**
@@ -217,4 +221,16 @@ public class Admin extends Activity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+
+
+
 }
+
+
+
+
+
+
+
+
