@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.apk_kpa.app.Apklausa;
 
@@ -33,6 +34,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_APK1 + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_KL + " TEXT," + KEY_ATS + " TEXT," + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
+        Log.i("Sukure lentele: ",CREATE_CONTACTS_TABLE );
+        onCreate(db);
+
     }
 
     // Upgrading database
@@ -42,8 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_APK1);
 
         // Create tables again
-        onCreate(db);
-        addApklausa();
+        //onCreate(db);
+       // addApklausa();
     }
 
      void addApklausa() {
@@ -54,6 +59,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_KL, apk.getKlausymas());
         values.put(KEY_ATS, apk.getAtsakymas());
+
+         Log.i("Ivede: ", KEY_KL );
+         Log.i("Ivede: ", KEY_ATS );
 //        values.put(KEY_CH2, question.getPhoneNumber());
 //        values.put(KEY_CH3, question.getPhoneNumber());
 //        values.put(KEY_SHOPID, question.getPhoneNumber());
@@ -81,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        return question;
 //    }
 //
-//    // Getting All Contacts
+//    // Getting All g
 //    public List<Question> getAllQuestions() {
 //        List<Question> questionList = new ArrayList<Question>();
 //        // Select All Query
