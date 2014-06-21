@@ -12,7 +12,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, Login.class));
+//        startActivity(new Intent(this, Login.class));
+        setContentView(R.layout.activity_main);
     }
 
 
