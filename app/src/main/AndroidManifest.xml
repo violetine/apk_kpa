@@ -10,7 +10,7 @@
         <activity
             android:name="com.example.apk_kpa.app.MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar">
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,15 +18,15 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.apk_kpa.app.Register"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            />
         <activity android:name="com.example.apk_kpa.app.Login"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            />
         <activity android:name="com.example.apk_kpa.app.LogedIn"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            />
         <activity android:name="com.example.apk_kpa.app.Admin"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            />
         <activity android:name="com.example.apk_kpa.app.Apklausa"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            />
 
 
 
