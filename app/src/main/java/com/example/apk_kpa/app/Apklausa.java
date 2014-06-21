@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -54,6 +55,10 @@ public class Apklausa extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the Title Bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.json_list);
 
                  inboxList = new ArrayList<HashMap<String, String>>();
