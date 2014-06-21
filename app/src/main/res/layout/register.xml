@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:weightSum="1"
-    android:background="#ffe5e5e5">
+    android:background="#fff">
 
     <TextView
         android:layout_width="156dp"
