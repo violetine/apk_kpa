@@ -6,7 +6,7 @@
     tools:context=".MainActivity">
     <!--loginas-->
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="450dip"
@@ -14,7 +14,8 @@
         android:layout_weight="0.5dp"
         android:background="#ff33b5e5"
         android:textColor="#ffffffff"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="logIn"/>
 
 
 
