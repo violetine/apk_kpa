@@ -84,16 +84,5 @@
         android:textColor="#ffffffff"
         android:textStyle="bold" />
 
-    <!--registracija-->
-    <Button
-        android:id="@+id/registr"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="#ff33b5e5"
-        android:text="Registracija"
-        android:textStyle="bold"
-        android:layout_weight="0.37"
-        android:onClick="register"
-        android:textColor="#ffffffff" />
+
 </LinearLayout>

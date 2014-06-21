@@ -85,13 +85,7 @@ public class Login extends Activity {
 
         startActivity(new Intent(this, LogedIn.class));
     }*/
-    //metodas register klases iskvietimui
-    public void register (View view1) {
 
-//        startActivity(new Intent(this, Register.class));
-        Intent intent = new Intent(Login.this,Register.class);
-        startActivity(intent);
-    }
 
     // klase prisijungimui prie webservo
     public class LoginTask extends AsyncTask<String, Void, Boolean> {

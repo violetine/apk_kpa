@@ -23,6 +23,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    //metodas register klases iskvietimui
+    public void register (View view1) {
+
+//        startActivity(new Intent(this, Register.class));
+        Intent intent = new Intent(this,Register.class);
+        startActivity(intent);
+    }
 
 
     public void loged_in (View view2) {

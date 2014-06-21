@@ -3,19 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="620dp"
     android:background="@drawable/apklausa_bg_logo"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="10dip">
     <!--loginas-->
     <Button
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dip"
-        android:text="Toliau"
+        android:layout_marginTop="370dip"
+        android:text="Prisijungti"
         android:layout_weight="0.5dp"
-        android:background="#ff33b5e5"
-        android:textColor="#ffffffff"
+        android:background="#05c3f9"
+        android:textColor="#ffffff"
         android:textStyle="bold"
         android:onClick="logIn"/>
+
+    <!--registracija-->
+    <Button
+        android:id="@+id/registr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="435dip"
+        android:background="#fffffff"
+        android:text="Registracija"
+        android:textStyle="bold"
+        android:layout_weight="0.37"
+        android:onClick="register"
+        android:textColor="#000000"
+        />
 
 
 
