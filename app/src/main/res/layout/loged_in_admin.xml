@@ -30,7 +30,7 @@
         <Button
             android:id = "@+id/kurtiApklausaBtn"
             android:layout_width="fill_parent"
-            android:layout_height="65dp"
+            android:layout_height="70dp"
             android:text = "Sukurti apklausa"
             android:textSize="30dp"
             android:layout_alignParentTop="true"

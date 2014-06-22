@@ -3,7 +3,8 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/bg_colormix"
-    android:id="@+id/b">
+    android:id="@+id/b"
+    android:padding="7dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,8 +85,8 @@
         android:layout_alignEnd="@+id/txtAntrasPasirinkimas" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
         android:text="Prideti klausima"
         android:background="@drawable/rounded_corner"
         android:textColor="#fff"
