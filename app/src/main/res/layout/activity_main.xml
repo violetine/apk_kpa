@@ -1,37 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="620dp"
-    android:background="@drawable/apklausa_bg_logo"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity"
-    android:padding="10dip">
-    <!--loginas-->
-    <Button
-        android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="440dip"
-        android:layout_gravity="center_horizontal"
-        android:text="Prisijungti"
-        android:background="#05c3f9"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:onClick="logIn"/>
+    android:background="#fff">
 
-    <!--registracija-->
-    <Button
-        android:id="@+id/registr"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="560dip"
-        android:background="#fff"
-        android:textColor="#05c3f9"
-        android:text="Registracija"
-        android:textStyle="bold"
-        android:layout_weight="0.37"
-        android:onClick="register"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        >
+        <ImageView
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/apklausa_bg_logo"
+            />
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:padding="7dp"
+        >
+
+        <!--loginas-->
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Prisijungti"
+            android:background="@drawable/rounded_corner"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:onClick="logIn"/>
+
+        <!--registracija-->
+        <Button
+            android:id="@+id/registr"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:textColor="#05c3f9"
+            android:text="Registracija"
+            android:textStyle="bold"
+            android:layout_weight="0.37"
+            android:onClick="register"
+            />
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>
