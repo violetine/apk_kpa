@@ -2,9 +2,6 @@ package com.example.apk_kpa.app;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +12,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.apk_kpa.app.database.DatabaseHandler;
+import com.example.apk_kpa.app.database.DBHelper;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +29,8 @@ import java.util.List;
  * Created by VIO on 6/8/2014.
  */
 public class Apklausa extends ListActivity {
+
+    DBHelper mydb;
 
     private ProgressDialog pDialog;
 
@@ -50,14 +49,16 @@ public class Apklausa extends ListActivity {
     private RadioGroup group1;
     private RadioButton pasirinkimas;
     public TextView kla;
+    String pas;
+    String klau;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Hide the Title Bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mydb = new DBHelper(this);
 
         setContentView(R.layout.json_list);
 
@@ -65,25 +66,23 @@ public class Apklausa extends ListActivity {
                  new LoadInbox().execute();
     }
 
-
     public void ats (View view2) {
 
-        //startActivity(new Intent(this, Apklausa.class));
-        DatabaseHandler db = new DatabaseHandler(this);
-        group1 = (RadioGroup) findViewById(R.id.group1);
-        int selectedId = group1.getCheckedRadioButtonId();
-        pasirinkimas = (RadioButton) findViewById(selectedId);
-        Toast.makeText(Apklausa.this,
-                pasirinkimas.getText(), Toast.LENGTH_SHORT).show();
+        getKlausymas();
+        getAtsakymas();
+        mydb.insertKl(klau,pas);
+        mydb = new DBHelper(this);
 
-        //DatabaseHandler db = new DatabaseHandler(this);
+        setContentView(R.layout.json_list);
+
+        inboxList = new ArrayList<HashMap<String, String>>();
+        new LoadInbox().execute();
     }
 
     public String getKlausymas(){
 
         kla = (TextView) findViewById(R.id.kl);
-        String klau = kla.getText().toString();
-
+        klau = kla.getText().toString();
         return klau;
     }
 
@@ -91,13 +90,12 @@ public class Apklausa extends ListActivity {
         group1 = (RadioGroup) findViewById(R.id.group1);
         int selectedId = group1.getCheckedRadioButtonId();
         pasirinkimas = (RadioButton) findViewById(selectedId);
-        String pas = pasirinkimas.getText().toString();
+        pas = pasirinkimas.getText().toString();
         return pas;
 
     }
 
             class LoadInbox extends AsyncTask<String, String, String> {
-
 
                 @Override
                 protected void onPreExecute() {
@@ -111,15 +109,28 @@ public class Apklausa extends ListActivity {
 
                 /**
                  * getting Inbox JSON
-                 * */
+                 */
                 protected String doInBackground(String... args) {
 
-                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
 
+
+                        jsonParser.makeHttpRequest(INBOX_URL, "POST", res);
+                        res.add(new BasicNameValuePair("res","1"));
+                        //Log.e("reiksme", getString(a));
+
+
+
+                    jsData();
+                    return null;
+                }
+
+                protected String jsData (){
+
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
                     // getting JSON string from URL
                     JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET",
                             params);
-
                     Log.d("JSON: ", json.toString());
 
                     try {
@@ -149,7 +160,6 @@ public class Apklausa extends ListActivity {
                     }
                     return null;
                 }
-
                 protected void onPostExecute(String file_url) {
                     // dismiss
                     pDialog.dismiss();

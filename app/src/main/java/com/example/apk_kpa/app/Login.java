@@ -36,7 +36,6 @@ public class Login extends Activity {
 
 
     String url = null;
-//    Integer code;
     String code;
     String name;
     String passwd;
@@ -98,8 +97,6 @@ public class Login extends Activity {
 
         @Override
         protected Boolean doInBackground(String... url) {
-
-//            boolean good = false;
 
             // prisijungimo aprasymas
             final HttpClient httpclient = new DefaultHttpClient();
