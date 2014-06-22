@@ -24,7 +24,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:padding="7dp"/>
     <RadioGroup
         android:id="@+id/group1"
         android:layout_width="fill_parent"
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="7dp"
-        >
+        android:paddingTop="200dp">
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
