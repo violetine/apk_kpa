@@ -115,13 +115,13 @@ public class Apklausa extends ListActivity {
 
                 //Konstruktoriaus iskvietimas
                     jsData();
-
                     return null;
                 }
 
                 protected String jsData (){
 
                     ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
+
                     // Kreipimosi ID i WebServisa
                     res.add(new BasicNameValuePair("res","2"));
 
