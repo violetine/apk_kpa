@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="false"
+        android:paddingBottom="100dp"
         >
         <ImageView
             android:orientation="vertical"
@@ -23,14 +23,12 @@
 
 
     <LinearLayout
-        android:id="@+id/buttons"
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="false"
         android:padding="7dp"
-        >
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
         <!--loginas-->
         <Button
@@ -41,19 +39,20 @@
             android:background="@drawable/rounded_corner"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:onClick="logIn"/>
+            android:onClick="logIn"
+            />
 
         <!--registracija-->
         <Button
             android:id="@+id/registr"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="#fff"
             android:textColor="#05c3f9"
             android:text="Registracija"
             android:textStyle="bold"
-            android:layout_weight="0.37"
             android:onClick="register"
+            android:layout_marginTop="20dp"
             />
 
 

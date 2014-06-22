@@ -7,21 +7,20 @@
 
 
 
-     <RelativeLayout
-         android:layout_width="match_parent"
-         android:layout_height="30pt">
-    <TextView
-        android:layout_width="156dp"
-        android:layout_height="47dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textView5"
-        android:layout_gravity="top|center_horizontal"
-        android:background="@drawable/bg_logo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-
-     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:paddingBottom="1dp"
+        android:layout_alignParentTop="true"
+        >
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/bg_logo" />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
