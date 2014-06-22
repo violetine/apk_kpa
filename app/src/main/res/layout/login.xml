@@ -75,11 +75,10 @@
     <!--loginas-->
     <Button
         android:id="@+id/loginBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_marginTop="20dip"
         android:text="Prisijungti"
-        android:layout_weight="0.37"
         android:background="@drawable/rounded_corner"
         android:textColor="#fff"
         android:textStyle="bold" />

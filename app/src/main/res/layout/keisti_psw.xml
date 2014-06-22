@@ -88,19 +88,20 @@
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="365dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:padding="7dp">
 
         <Button
             android:id="@+id/loginBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:layout_marginTop="20dip"
             android:text="Keisti slaptažodi"
             android:layout_weight="0.37"
             android:background="@drawable/rounded_corner"
-            android:textColor="#ffffffff"
+            android:textColor="#fff"
             android:textStyle="bold" />
     </LinearLayout>
 

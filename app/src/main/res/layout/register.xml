@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:weightSum="1"
+    android:padding="7dp"
     android:background="#fff">
 
     <TextView
@@ -119,12 +120,11 @@
         android:layout_weight="0.30" />
 
     <Button
-        android:layout_width="364dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:text="Registruotis"
         android:id="@+id/regBtn"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.36"
         android:background="@drawable/rounded_corner"
         android:textColor="#fff"
         android:textStyle="bold"
