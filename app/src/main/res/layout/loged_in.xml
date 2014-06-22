@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_colormix"
-    android:weightSum="1"
+    android:padding="7dp"
     android:orientation="vertical">
 
 
@@ -50,21 +50,23 @@
             android:textColor="#ff5a5a5a"
             android:textStyle="bold"/>
 
+        <!-- Tekstas desineje puseje -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
+            android:text=""
             android:id="@+id/asd"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+        <!-- Tekstas desineje puseje [Pabaiga] -->
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:fillViewport="false">
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:background="@drawable/bg_colormix"
-    android:padding="7dp"
+    android:padding="7dip"
     >
 
     <LinearLayout
@@ -94,7 +94,7 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:text="Keisti slaptažodį"
             android:id="@+id/changePswBtn"
             android:background="@drawable/rounded_corner"
