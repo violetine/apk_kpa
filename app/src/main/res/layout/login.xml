@@ -80,8 +80,8 @@
         android:layout_marginTop="20dip"
         android:text="Prisijungti"
         android:layout_weight="0.37"
-        android:background="#ff33b5e5"
-        android:textColor="#ffffffff"
+        android:background="@drawable/rounded_corner"
+        android:textColor="#fff"
         android:textStyle="bold" />
 
 

@@ -44,6 +44,8 @@
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:text="Kitas klausymas"
+        android:background="@drawable/rounded_corner"
+        android:textColor="#fff"
         android:id="@+id/submit"
         android:onClick="ats"/>
 

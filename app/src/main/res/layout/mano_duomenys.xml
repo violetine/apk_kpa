@@ -74,8 +74,8 @@
             android:layout_marginBottom="12dip"
             android:text="Keisti slaptažodi"
             android:layout_weight="0.09"
-            android:background="#ff33b5e5"
-            android:textColor="#ffffffff"
+            android:background="@drawable/rounded_corner"
+            android:textColor="#fff"
 
             android:textStyle="bold" />
 

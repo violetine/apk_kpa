@@ -87,6 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prideti klausima"
+        android:background="@drawable/rounded_corner"
+        android:textColor="#fff"
         android:id="@+id/btnPridetiKlausima"
         android:layout_below="@+id/txtTreciasPasirinkimas"
         android:layout_centerHorizontal="true" />

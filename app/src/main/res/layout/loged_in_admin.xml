@@ -34,8 +34,8 @@
             android:text = "Sukurti apklausa"
             android:textSize="30dp"
             android:layout_alignParentTop="true"
-            android:background="#ff33b5e5"
-            android:textColor="#ffffffff"
+            android:background="@drawable/rounded_corner"
+            android:textColor="#fff"
             android:textStyle="bold"> </Button>
 
     </RelativeLayout>
