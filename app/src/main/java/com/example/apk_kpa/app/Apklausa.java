@@ -40,7 +40,8 @@ public class Apklausa extends ListActivity {
 
     JSONArray inbox = null;
 
-    private static final String INBOX_URL = "http://mokslai.ger.us.lt/pridetiKlausima.php";
+
+    private static final String INBOX_URL = "http://mokslai.ger.us.lt/pridetiKlausimaV2.php";
     private static final String TAG_MESSAGES = "turinys";
     private static final String TAG_TITLE = "Pavadinimas";
     private static final String TAG_ATS1 = "Pasirinkimas1";
@@ -112,26 +113,20 @@ public class Apklausa extends ListActivity {
                  */
                 protected String doInBackground(String... args) {
 
-                    ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
-
-
-                        jsonParser.makeHttpRequest(INBOX_URL, "POST", res);
-                        res.add(new BasicNameValuePair("res","1"));
-                        //Log.e("reiksme", getString(a));
-
-
-
+                //Konstruktoriaus iskvietimas
                     jsData();
+
                     return null;
                 }
 
                 protected String jsData (){
 
-                    List<NameValuePair> params = new ArrayList<NameValuePair>();
-                    // getting JSON string from URL
-                    JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET",
-                            params);
-                    Log.d("JSON: ", json.toString());
+                    ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
+                    // Kreipimosi ID i WebServisa
+                    res.add(new BasicNameValuePair("res","2"));
+
+                    JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET", res);
+
 
                     try {
                         inbox = json.getJSONArray(TAG_MESSAGES);
