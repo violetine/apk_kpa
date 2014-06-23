@@ -1,36 +1,35 @@
 package com.example.apk_kpa.app;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.example.apk_kpa.app.SwipeMenu.SwipeUser;
+
+
 
 /**
  * Created by Marius on 5/25/14.
  */
 public class LogedIn extends Activity {
+
     private String slapyvardis;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        // Hide the Title Bar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.loged_in);
+        String data = getIntent().getExtras().getString("nickas");
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            slapyvardis = extras.getString("nickas");
-        }
-        TextView nickas = (TextView)findViewById(R.id.lblNick);
-        nickas.setText("Slapyvardis: "+slapyvardis);
-    }
+        Intent intent = new Intent(this, SwipeUser.class);
+        intent.putExtra("nickas",data);
+        startActivity(intent);
 
-    public void start_apk (View view) {
 
-        startActivity(new Intent(this, Apklausa.class));
     }
 
 

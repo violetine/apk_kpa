@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import android.app.ProgressDialog;
 
+import com.example.apk_kpa.app.SwipeMenu.SwipeUser;
 
 
 /**

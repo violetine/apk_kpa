@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30pt">
-        <Button
+        <!--<Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="40dp"
             android:layout_height="30dp"
@@ -19,7 +19,8 @@
             android:background="@drawable/ic_drawer"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:onClick="open"/>-->
 
         <TextView
             android:layout_width="156dp"
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Slapyvardis"
+            android:text="Slapyvardis:"
             android:id="@+id/lblNick"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -60,6 +61,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text=""
+            android:id="@+id/MyName"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/lblNick" />
         <!-- Tekstas desineje puseje [Pabaiga] -->
 
     </RelativeLayout>
