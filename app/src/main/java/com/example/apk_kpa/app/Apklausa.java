@@ -147,7 +147,7 @@ public class Apklausa extends ListActivity {
 
                             // HashList to ArrayList
                             inboxList.add(map);
-                            mydb.klausymai(TAG_TITLE,TAG_ATS1,TAG_ATS2,TAG_ATS3);
+                            mydb.klausymai(from,ats1,ats2,ats3);
                         }
 
                     } catch (JSONException e) {
