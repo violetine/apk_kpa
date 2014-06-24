@@ -2,11 +2,15 @@ package com.example.apk_kpa.app;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,6 +56,7 @@ public class Apklausa extends ListActivity {
     public TextView kla;
     String pas;
     String klau;
+    int count = 1;
 
 
     @Override
@@ -59,26 +64,35 @@ public class Apklausa extends ListActivity {
         super.onCreate(savedInstanceState);
         // Hide the Title Bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mydb = new DBHelper(this);
-
         setContentView(R.layout.json_list);
-
-                 inboxList = new ArrayList<HashMap<String, String>>();
-                 new LoadInbox().execute();
-    }
-
-    public void ats (View view2) {
-
-        getKlausymas();
-        getAtsakymas();
-        mydb.insertKl(klau,pas);
         mydb = new DBHelper(this);
-
-        setContentView(R.layout.json_list);
-
         inboxList = new ArrayList<HashMap<String, String>>();
         new LoadInbox().execute();
+
+        Button but = (Button) findViewById(R.id.submit);
+        but.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                count++;
+                Log.e("Skaiciuoju clickus:", String.valueOf(count));
+                getKlausymas();
+                getAtsakymas();
+                mydb.insertKl(klau,pas);
+            }
+        });
     }
+
+//    public void ats (View view2) {
+//
+//        getKlausymas();
+//        getAtsakymas();
+//        mydb.insertKl(klau,pas);
+//        mydb = new DBHelper(this);
+
+//        setContentView(R.layout.json_list);
+//
+//        inboxList = new ArrayList<HashMap<String, String>>();
+       // new LoadInbox().execute();
+    //}
 
     public String getKlausymas(){
 
@@ -92,6 +106,9 @@ public class Apklausa extends ListActivity {
         int selectedId = group1.getCheckedRadioButtonId();
         pasirinkimas = (RadioButton) findViewById(selectedId);
         pas = pasirinkimas.getText().toString();
+        mydb = new DBHelper(this);
+        inboxList = new ArrayList<HashMap<String, String>>();
+        new LoadInbox().execute();
         return pas;
 
     }
@@ -113,7 +130,6 @@ public class Apklausa extends ListActivity {
                  */
                 protected String doInBackground(String... args) {
 
-                //Konstruktoriaus iskvietimas
                     jsData();
                     return null;
                 }
@@ -123,9 +139,9 @@ public class Apklausa extends ListActivity {
                     ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
 
                     // Kreipimosi ID i WebServisa
-                    res.add(new BasicNameValuePair("res","2"));
+                    res.add(new BasicNameValuePair("res",String.valueOf(count)));
 
-                    JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET", res);
+                    JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "POST",res);
 
 
                     try {

@@ -19,8 +19,16 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_KL = "Pavadinimas";
     private static final String KEY_ATS = "Pasirinkimas1";
+    private static final String TABLE_USER = "user";
+    private static final String KEY_ID1 = "code";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_PASS = "passw";
+    private static final String KEY_ACTIVE = "active";
+    private static final String KEY_isActive = "1";
+
 
     SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
 
     public DBHelper(Context context)
     {
@@ -31,6 +39,13 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
+        db.execSQL("CREATE TABLE user ("
+                + KEY_ID1 + " INTEGER,"
+                + KEY_NAME + " TEXT,"
+                + KEY_PASS + " TEXT, "
+                + KEY_ACTIVE + " INTEGER " +
+                ")");
+
         db.execSQL("CREATE TABLE klausimai ("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_KL + " TEXT,"
@@ -41,8 +56,34 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-       db.execSQL("DROP TABLE IF EXISTS klausimai");
+        db.execSQL("DROP TABLE IF EXISTS user");
+        db.execSQL("DROP TABLE IF EXISTS klausimai");
        this.onCreate(db);
+    }
+
+    public void insertUser (String name, String pass, String id){
+
+        Log.e("naujas irasas", name);
+        newUser(name,pass,id);
+
+        //Cursor row = db.rawQuery("SELECT code FROM user WHERE name= '" + name + "'", null);
+
+//        if(row != null) {
+//              setActive(name);
+//        }
+    }
+
+    public void newUser (String name, String pass, String id){
+        String a = "1";
+
+        contentValues.put("name", name);
+        contentValues.put("passw", pass);
+        contentValues.put("code", id);
+        contentValues.put("active",a);
+
+        db.insert("user", null, contentValues);
+        Log.e("Irasiau viska", name + pass + id + a);
+
     }
 
     public boolean insertKl  (String kl, String ats)
@@ -65,7 +106,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void newAts (String kl, String ats){
 
-        ContentValues contentValues = new ContentValues();
         contentValues.put("Pavadinimas", kl);
         contentValues.put("Pasirinkimas1", ats);
 
@@ -80,47 +120,4 @@ public class DBHelper extends SQLiteOpenHelper {
         //db.delete(TABLE_APK1, KEY_KL + "='" + kl + "'", null);
         db.execSQL("delete from "+ TABLE_APK1);
     }
-//    public Cursor getData(int id){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
-//        return res;
-//    }
-//    public int numberOfRows(){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        int numRows = (int) DatabaseUtils.queryNumEntries(db, CONTACTS_TABLE_NAME);
-//        return numRows;
-//    }
-//    public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
-//    {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("name", name);
-//        contentValues.put("phone", phone);
-//        contentValues.put("email", email);
-//        contentValues.put("street", street);
-//        contentValues.put("place", place);
-//        db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
-//        return true;
-//    }
-//
-//    public Integer deleteContact (Integer id)
-//    {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        return db.delete("contacts",
-//                "id = ? ",
-//                new String[] { Integer.toString(id) });
-//    }
-//    public ArrayList getAllCotacts()
-//    {
-//        ArrayList array_list = new ArrayList();
-//        //hp = new HashMap();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor res =  db.rawQuery( "select * from contacts", null );
-//        res.moveToFirst();
-//        while(res.isAfterLast() == false){
-//            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
-//            res.moveToNext();
-//        }
-//        return array_list;
-//    }
 }

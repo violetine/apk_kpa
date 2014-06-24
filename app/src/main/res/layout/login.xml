@@ -81,13 +81,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--Error message-->
-    <!--<TextView android:id="@+id/login_error"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#dadae3"
-        android:padding="10dip"
-        android:textStyle="bold"/>-->
 
     <!--loginas-->
     <LinearLayout

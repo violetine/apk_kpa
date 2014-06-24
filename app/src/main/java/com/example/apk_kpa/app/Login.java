@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,7 +27,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import android.app.ProgressDialog;
 
-import com.example.apk_kpa.app.SwipeMenu.SwipeUser;
+import com.example.apk_kpa.app.database.DBHelper;
 
 
 /**
@@ -42,7 +43,6 @@ public class Login extends Activity {
     String dialog_title = null;
     ProgressDialog progressDialog;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class Login extends Activity {
 
         setContentView(R.layout.login);
 
-
+        final DBHelper mydb = new DBHelper(this);
         // elementai
         final EditText e_code = (EditText) findViewById(R.id.code);
         final EditText e_name = (EditText) findViewById(R.id.name);
@@ -71,6 +71,7 @@ public class Login extends Activity {
                 code = e_code.getText().toString();
                 name = e_name.getText().toString();
                 passwd = e_password.getText().toString();
+                mydb.insertUser(name,passwd,code);
 
 
                 LoginTask log = new LoginTask();
@@ -158,6 +159,7 @@ public class Login extends Activity {
                             runOnUiThread(new Runnable() {
                                 public void run() {
 
+                                   // DBHelper mydb = new DBHelper(this);
                                     Intent intent = new Intent(Login.this,LogedIn.class);
                                     intent.putExtra("nickas",name);
                                     startActivity(intent);
