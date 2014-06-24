@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -19,9 +20,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.apk_kpa.app.Admin_loged;
+import com.example.apk_kpa.app.LogedIn;
 import com.example.apk_kpa.app.Mano_duomenys;
 import com.example.apk_kpa.app.R;
 import com.example.apk_kpa.app.Statistika;
+import com.example.apk_kpa.app.SukurtiKlausima;
 import com.example.apk_kpa.app.adapter.NavDrawerListAdapter;
 import com.example.apk_kpa.app.model.NavDrawerItem;
 
@@ -201,6 +204,10 @@ public class SwipeAdmin extends Activity {
         }
     }
 
+    public void kurtiKlausyma(View view){
+        Intent intent = new Intent(this,SukurtiKlausima.class);
+        startActivity(intent);
+    }
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;

@@ -33,6 +33,8 @@
             />
         <activity android:name="com.example.apk_kpa.app.SwipeMenu.SwipeUser"
             />
+        <activity android:name=".SukurtiKlausima"
+            />
 
 
 

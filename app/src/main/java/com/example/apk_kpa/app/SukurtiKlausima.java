@@ -50,17 +50,7 @@ public class SukurtiKlausima extends Activity {
         final EditText e_antrasPasirinkimas =(EditText)findViewById(R.id.txtAntrasPasirinkimas);
         final EditText e_treciasPasirinkimas =(EditText)findViewById(R.id.txtTreciasPasirinkimas);
 
-
-
-
-//        final EditText e_nick = (EditText) findViewById(R.id.nick);
-//        final EditText e_name = (EditText) findViewById(R.id.name);
-//        final EditText e_email = (EditText) findViewById(R.id.email);
-//        final EditText e_miestas = (EditText) findViewById(R.id.miestas);
-//        final EditText e_psw = (EditText) findViewById(R.id.psw);
-//        final EditText e_rePsw = (EditText) findViewById(R.id.rePsw);
         Button pridetiKlausima = (Button)findViewById(R.id.btnPridetiKlausima);
-//        Button regBtn = (Button) findViewById(R.id.regBtn);
 
         pridetiKlausima.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -107,7 +97,7 @@ public class SukurtiKlausima extends Activity {
 
             // prisijungimo aprasymas
             HttpClient httpclient = new DefaultHttpClient();
-            final HttpPost httppost = new HttpPost("http://mokslai.ger.us.lt/registracija.php");
+            final HttpPost httppost = new HttpPost("http://mokslai.ger.us.lt/adminKurtiKlausima.php");
 
             try {
 
@@ -118,6 +108,9 @@ public class SukurtiKlausima extends Activity {
                 nameValuePairs.add(new BasicNameValuePair("ats1",atsakymas1));
                 nameValuePairs.add(new BasicNameValuePair("ats2",atsakymas2));
                 nameValuePairs.add(new BasicNameValuePair("ats3",atsakymas3));
+
+                nameValuePairs.add(new BasicNameValuePair("sukure","test"));
+                nameValuePairs.add(new BasicNameValuePair("pardId","1"));
 //                nameValuePairs.add(new BasicNameValuePair("nick", nick));
 //                nameValuePairs.add(new BasicNameValuePair("name", name));
 //                nameValuePairs.add(new BasicNameValuePair("email", email));
@@ -147,7 +140,7 @@ public class SukurtiKlausima extends Activity {
                             public void run() {
                                 // dismiss the progress dialog
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Neirasej pavadinimo!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Neįrašytas pavadinimas !", Toast.LENGTH_LONG).show();
                             }
                         });
                     }else {
@@ -167,7 +160,7 @@ public class SukurtiKlausima extends Activity {
                                     //startActivity(intent);
                                     // dismiss the progress dialog
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai užsiregistravote !", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Jūs sėkmingai pridėjote klausymą !", Toast.LENGTH_LONG).show();
 
                                 }
                             });
@@ -178,13 +171,12 @@ public class SukurtiKlausima extends Activity {
                                     // dismiss the progress dialog
                                     // dismiss the progress dialog
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Toks vartotojas jau egzistuoja!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Toks klausimas jau egzistuoja!", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }
-
-
                     }
+
                 }catch (Exception e) {
                     Log.e("prisijungimas fail 2", e.toString());
                 }

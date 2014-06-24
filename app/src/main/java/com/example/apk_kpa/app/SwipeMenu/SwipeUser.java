@@ -54,7 +54,10 @@ public class SwipeUser extends Activity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-    public  String data;
+
+
+    public  String userName;
+    public  String userEmail;
 
 
     @Override
@@ -67,7 +70,7 @@ public class SwipeUser extends Activity {
 
         setContentView(R.layout.kurti_apklausa);
 
-        Log.e("Perfect OR NOT:  ","" +data);
+
 
 //        Bundle bundle = new Bundle();
 //        // set Fragmentclass Arguments
@@ -146,13 +149,6 @@ public class SwipeUser extends Activity {
         startActivity(new Intent(this, Apklausa.class));
     }
 
-//    public void open(View view5)
-//    {
-//        mDrawerLayout.openDrawer(Gravity.LEFT);
-//    }
-
-
-
 
 
 
@@ -205,18 +201,19 @@ public class SwipeUser extends Activity {
      * Diplaying fragment view for selected nav drawer list item
      * */
     private void displayView(int position) {
-        data = getIntent().getExtras().getString("nickas");
+        userName = getIntent().getExtras().getString("nickas");
+        userEmail = getIntent().getExtras().getString("email");
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new LogedUser(data);
+                fragment = new LogedUser(userName);
                 break;
             case 1:
                 fragment = new Statistika();
                 break;
             case 2:
-                fragment = new Mano_duomenys();
+                fragment = new Mano_duomenys(userName,userEmail);
                 break;
             default:
                 break;

@@ -35,7 +35,8 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/rounded_corner"
             android:textColor="#fff"
-            android:textStyle="bold"> </Button>
+            android:textStyle="bold"
+            android:onClick="kurtiKlausyma"> </Button>
 
     </RelativeLayout>
 
