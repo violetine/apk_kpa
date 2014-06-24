@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.HashMap;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -19,12 +21,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_KL = "Pavadinimas";
     private static final String KEY_ATS = "Pasirinkimas1";
-    private static final String TABLE_USER = "user";
+    private static final String KEY_ATS1 = "Pasirinkimas2";
+    private static final String KEY_ATS2 = "Pasirinkimas3";
     private static final String KEY_ID1 = "code";
     private static final String KEY_NAME = "name";
     private static final String KEY_PASS = "passw";
     private static final String KEY_ACTIVE = "active";
-    private static final String KEY_isActive = "1";
+
 
 
     SQLiteDatabase db = this.getWritableDatabase();
@@ -39,6 +42,14 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
+        db.execSQL("CREATE TABLE apk ("
+                + KEY_ID1 + " INTEGER,"
+                + KEY_KL + " TEXT,"
+                + KEY_ATS + " TEXT, "
+                + KEY_ATS1 + " TEXT, "
+                + KEY_ATS2 + " TEXT " +
+                ")");
+
         db.execSQL("CREATE TABLE user ("
                 + KEY_ID1 + " INTEGER,"
                 + KEY_NAME + " TEXT,"
@@ -58,6 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS user");
         db.execSQL("DROP TABLE IF EXISTS klausimai");
+        db.execSQL("DROP TABLE IF EXISTS apk");
        this.onCreate(db);
     }
 
@@ -86,8 +98,40 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertKl  (String kl, String ats)
-    {
+    public void klausymai(String kl, String ats1, String ats2, String ats3){
+        contentValues.put("Pavadinimas", kl);
+        contentValues.put("Pasirinkimas1", ats1);
+        contentValues.put("Pasirinkimas2", ats2);
+        contentValues.put("Pasirinkimas3", ats3);
+
+        db.insert("apk", null, contentValues);
+    }
+
+    public String selectKl(String k){
+        Cursor klau = db.rawQuery("SELECT Pavadinimas FROM apk ", null);
+        k = klau.getString(klau.getColumnIndex("Pavadinimas"));
+        return k;
+    }
+
+    public String selectAts1(String a1) {
+        Cursor ats1 = db.rawQuery("SELECT ats1 FROM apk ", null);
+        a1 = ats1.getString(ats1.getColumnIndex("ats1"));
+        return a1;
+    }
+
+    public String selectAts2(String a2) {
+        Cursor ats2 = db.rawQuery("SELECT ats2 FROM apk ", null);
+        a2 = ats2.getString(ats2.getColumnIndex("ats2"));
+        return a2;
+    }
+
+    public String selectAts3(String a3) {
+        Cursor ats3 = db.rawQuery("SELECT ats3 FROM apk ", null);
+        a3 = ats3.getString(ats3.getColumnIndex("ats3"));
+        return a3;
+    }
+
+    public boolean insertKl  (String kl, String ats){
 
         Cursor row = db.rawQuery("SELECT Pavadinimas FROM klausimai WHERE Pavadinimas= '" + kl + "'", null);
 
@@ -108,11 +152,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         contentValues.put("Pavadinimas", kl);
         contentValues.put("Pasirinkimas1", ats);
-
         db.insert("klausimai", null, contentValues);
-        Log.e("Irasiau klausima:", kl);
-        Log.e("Irasiau atsakyma:", ats);
-
     }
 
     public void deleteKl()

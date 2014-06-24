@@ -16,8 +16,6 @@ import com.example.apk_kpa.app.SwipeMenu.SwipeUser;
  */
 public class LogedIn extends Activity {
 
-    private String slapyvardis;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

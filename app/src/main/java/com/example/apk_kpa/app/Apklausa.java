@@ -35,13 +35,9 @@ import java.util.List;
 public class Apklausa extends ListActivity {
 
     DBHelper mydb;
-
     private ProgressDialog pDialog;
-
     JSONParser jsonParser = new JSONParser();
-
     ArrayList<HashMap<String, String>> inboxList;
-
     JSONArray inbox = null;
 
 
@@ -80,19 +76,6 @@ public class Apklausa extends ListActivity {
             }
         });
     }
-
-//    public void ats (View view2) {
-//
-//        getKlausymas();
-//        getAtsakymas();
-//        mydb.insertKl(klau,pas);
-//        mydb = new DBHelper(this);
-
-//        setContentView(R.layout.json_list);
-//
-//        inboxList = new ArrayList<HashMap<String, String>>();
-       // new LoadInbox().execute();
-    //}
 
     public String getKlausymas(){
 
@@ -164,6 +147,7 @@ public class Apklausa extends ListActivity {
 
                             // HashList to ArrayList
                             inboxList.add(map);
+                            mydb.klausymai(TAG_TITLE,TAG_ATS1,TAG_ATS2,TAG_ATS3);
                         }
 
                     } catch (JSONException e) {

@@ -1,7 +1,10 @@
 package com.example.apk_kpa.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,24 +70,30 @@ public class Login extends Activity {
                 //start the progress dialog
                 progressDialog = ProgressDialog.show(Login.this, dialog_title, "Kraunasi...");
                 // priskiriam string reiksmes
-//                code = Integer.parseInt(e_code.getText().toString());
                 code = e_code.getText().toString();
                 name = e_name.getText().toString();
                 passwd = e_password.getText().toString();
                 mydb.insertUser(name,passwd,code);
 
 
-                LoginTask log = new LoginTask();
-                log.execute(url);
+                if(isNetworkAvailable() == true){
+                    LoginTask log = new LoginTask();
+                    log.execute(url);
+                }else{
+                    Intent intent = new Intent(Login.this,LogedIn.class);
+                    intent.putExtra("nickas",name);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    /*public void login_act(View view) {
-
-        startActivity(new Intent(this, LogedIn.class));
-    }*/
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     // klase prisijungimui prie webservo
     public class LoginTask extends AsyncTask<String, Void, Boolean> {
@@ -159,7 +168,6 @@ public class Login extends Activity {
                             runOnUiThread(new Runnable() {
                                 public void run() {
 
-                                   // DBHelper mydb = new DBHelper(this);
                                     Intent intent = new Intent(Login.this,LogedIn.class);
                                     intent.putExtra("nickas",name);
                                     startActivity(intent);
