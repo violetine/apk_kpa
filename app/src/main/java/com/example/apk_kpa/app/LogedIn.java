@@ -31,7 +31,7 @@ import java.util.Map;
 public class LogedIn extends Activity {
 
     private String slapyvardis;
-    public static String email;
+    public static String email,points,questions;
 
     private static String data;
 
@@ -43,6 +43,10 @@ public class LogedIn extends Activity {
     private static final String INBOX_URL = "http://mokslai.ger.us.lt/getUserInfo.php";
     private static final String TAG_MESSAGES = "turinys";
     private static final String TAG_EMAIL = "email";
+
+    private static final String TAG_POINTS = "taskai";
+    private static final String TAG_QUESTIONS = "atsake";
+
 
     private Intent a;
 
@@ -60,7 +64,6 @@ public class LogedIn extends Activity {
         Intent intent = new Intent(this, SwipeUser.class);
         a = intent;
 
-        //intent.putExtra("email",email);
         intent.putExtra("nickas",data);
 
 
@@ -107,19 +110,24 @@ public class LogedIn extends Activity {
                 for (int i = 0; i < inbox.length(); i++) {
                     JSONObject c = inbox.getJSONObject(i);
                     String from = c.getString(TAG_EMAIL);
+                    String pointers = c.getString(TAG_POINTS);
+                    String questioner = c.getString(TAG_QUESTIONS);
+
                     email = from;
+                    points = pointers;
+                    questions = questioner;
                     // HashMap sukurimas
                     HashMap<String, String> map = new HashMap<String, String>();
 
                     map.put(TAG_EMAIL, from);
+                    map.put(TAG_POINTS,pointers);
+                    map.put(TAG_QUESTIONS,questioner);
 
                     // HashList to ArrayList
                     inboxList.add(map);
 
                 }
 
-                //email = inboxList.get(0).get("email");
-                Log.e("EMAIL: ", email);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -131,8 +139,6 @@ public class LogedIn extends Activity {
             super.onPostExecute(result);
             pDialog.dismiss();
 
-
-            a.putExtra("email", email);
             //intent.putExtra("nickas",data);
 
         }

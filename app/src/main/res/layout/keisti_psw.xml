@@ -9,17 +9,34 @@
     >
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
-        android:paddingBottom="30dp"
-        android:layout_alignParentTop="true">
-        <ImageView
+        android:id="@+id/header">
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="47dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="top|center_horizontal"
-            android:src="@drawable/bg_logo"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="156dp"
+                android:layout_height="47dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/bg_logo"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="47dp"
+                android:id="@+id/LogoutBtn"
+                android:background="@drawable/rounded_corner"
+                android:src="@drawable/icon_logout"
+                android:layout_alignParentRight="true"
+
+                />
+
+        </RelativeLayout >
     </LinearLayout>
     <ScrollView
         android:layout_width="fill_parent"

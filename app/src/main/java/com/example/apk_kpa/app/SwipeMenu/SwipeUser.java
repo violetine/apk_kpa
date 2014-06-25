@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.apk_kpa.app.LogedIn;
 import com.example.apk_kpa.app.LogedUser;
 import com.example.apk_kpa.app.Apklausa;
+import com.example.apk_kpa.app.Login;
 import com.example.apk_kpa.app.Mano_duomenys;
 import com.example.apk_kpa.app.R;
 import com.example.apk_kpa.app.Statistika;
@@ -60,6 +61,8 @@ public class SwipeUser extends Activity {
     public  String userName;
     public  String userEmail;
 
+    public  String userPoints,userQuestions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,7 @@ public class SwipeUser extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.kurti_apklausa);
+
 
 
 
@@ -150,6 +154,16 @@ public class SwipeUser extends Activity {
         startActivity(new Intent(this, Apklausa.class));
     }
 
+    public void logout(View view){
+        /** on your logout method:**/
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+        startActivity(new Intent(this, Login.class));
+    }
+
+
+
 
 
 
@@ -203,7 +217,10 @@ public class SwipeUser extends Activity {
      * */
     private void displayView(int position) {
         userName = getIntent().getExtras().getString("nickas");
-        userEmail = LogedIn.email;// getIntent().getExtras().getString("email");
+        userEmail = LogedIn.email;
+
+        userPoints = LogedIn.points;
+        userQuestions = LogedIn.questions;
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
@@ -211,7 +228,7 @@ public class SwipeUser extends Activity {
                 fragment = new LogedUser(userName);
                 break;
             case 1:
-                fragment = new Statistika();
+                fragment = new Statistika(userPoints,userQuestions);
                 break;
             case 2:
                 fragment = new Mano_duomenys(userName,userEmail);

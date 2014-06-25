@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.example.apk_kpa.app.Admin_loged;
 import com.example.apk_kpa.app.LogedIn;
+import com.example.apk_kpa.app.Login;
 import com.example.apk_kpa.app.Mano_duomenys;
 import com.example.apk_kpa.app.R;
 import com.example.apk_kpa.app.Statistika;
@@ -208,6 +209,15 @@ public class SwipeAdmin extends Activity {
         Intent intent = new Intent(this,SukurtiKlausima.class);
         startActivity(intent);
     }
+
+    public void logout(View view){
+        /** on your logout method:**/
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+        startActivity(new Intent(this, Login.class));
+    }
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;

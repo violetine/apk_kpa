@@ -2,11 +2,13 @@ package com.example.apk_kpa.app;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +43,9 @@ public class SukurtiKlausima extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_sukurti_klausima);
 
         // elementai
@@ -79,6 +84,14 @@ public class SukurtiKlausima extends Activity {
 
             ;
         });
+    }
+
+    public void logout(View view){
+        /** on your logout method:**/
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+        startActivity(new Intent(this, Login.class));
     }
 
     // klase prisijungimui prie webservo

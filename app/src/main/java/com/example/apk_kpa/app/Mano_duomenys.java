@@ -24,7 +24,7 @@ public class Mano_duomenys extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.e("Aš čia, Email !!! arba ne :( ","" + email);
+
 
         View myInflatedView = inflater.inflate(R.layout.mano_duomenys, container,false);
 
