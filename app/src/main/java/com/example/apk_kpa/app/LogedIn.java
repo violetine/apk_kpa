@@ -31,12 +31,25 @@ import java.util.Map;
 public class LogedIn extends Activity {
 
     private String slapyvardis;
-    private String email = "N/A";
+    public static String email,points,questions;
 
     private static String data;
 
+    private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    public static ArrayList<HashMap<String, String>> inboxList;
+    JSONArray inbox = null;
+
+    private static final String INBOX_URL = "http://mokslai.ger.us.lt/getUserInfo.php";
     private static final String TAG_MESSAGES = "turinys";
     private static final String TAG_EMAIL = "email";
+
+    private static final String TAG_POINTS = "taskai";
+    private static final String TAG_QUESTIONS = "atsake";
+
+
+    private Intent a;
+
 
 
     @Override
@@ -45,17 +58,90 @@ public class LogedIn extends Activity {
         super.onCreate(savedInstanceState);
         data = getIntent().getExtras().getString("nickas");
 
+        inboxList = new ArrayList<HashMap<String, String>>();
+        new LoadInbox().execute();
 
         Intent intent = new Intent(this, SwipeUser.class);
+        a = intent;
 
-        intent.putExtra("email",email);
         intent.putExtra("nickas",data);
 
 
         startActivity(intent);
 
+    }
+
+    public class LoadInbox extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            jsData();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(LogedIn.this);
+            pDialog.setMessage("Kraunasi...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        /**
+         * getting Inbox JSON
+         */
 
 
+        protected void jsData (){
+
+            ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
+
+            // Kreipimosi ID i WebServisa
+            res.add(new BasicNameValuePair("name",data));
+
+            JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET",res);
+
+
+            try {
+                inbox = json.getJSONArray(TAG_MESSAGES);
+                // visi duomenys
+                for (int i = 0; i < inbox.length(); i++) {
+                    JSONObject c = inbox.getJSONObject(i);
+                    String from = c.getString(TAG_EMAIL);
+                    String pointers = c.getString(TAG_POINTS);
+                    String questioner = c.getString(TAG_QUESTIONS);
+
+                    email = from;
+                    points = pointers;
+                    questions = questioner;
+                    // HashMap sukurimas
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    map.put(TAG_EMAIL, from);
+                    map.put(TAG_POINTS,pointers);
+                    map.put(TAG_QUESTIONS,questioner);
+
+                    // HashList to ArrayList
+                    inboxList.add(map);
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            pDialog.dismiss();
+
+            //intent.putExtra("nickas",data);
+
+        }
 
     }
 
