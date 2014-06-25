@@ -45,6 +45,7 @@ public class Login extends Activity {
     String passwd;
     String dialog_title = null;
     ProgressDialog progressDialog;
+    boolean a;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,16 +74,21 @@ public class Login extends Activity {
                 code = e_code.getText().toString();
                 name = e_name.getText().toString();
                 passwd = e_password.getText().toString();
-                mydb.insertUser(name,passwd,code);
+                mydb.newUser(name,passwd,code);
 
 
                 if(isNetworkAvailable() == true){
                     LoginTask log = new LoginTask();
                     log.execute(url);
                 }else{
-                    Intent intent = new Intent(Login.this,LogedIn.class);
-                    intent.putExtra("nickas",name);
-                    startActivity(intent);
+                    mydb.activeUser(name,code,a);
+                    if(a == true){
+                        Intent intent = new Intent(Login.this,LogedIn.class);
+                        intent.putExtra("nickas ",name);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas/ID neegzistuoja !", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -196,7 +202,7 @@ public class Login extends Activity {
                             public void run() {
                                 // dismiss the progress dialog
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas neegzistuoja !", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas/ID neegzistuoja !", Toast.LENGTH_LONG).show();
                             }
                         });
 

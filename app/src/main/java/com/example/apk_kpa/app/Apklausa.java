@@ -3,11 +3,10 @@ package com.example.apk_kpa.app;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,18 +15,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
 import com.example.apk_kpa.app.database.DBHelper;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by VIO on 6/8/2014.
@@ -52,7 +47,12 @@ public class Apklausa extends ListActivity {
     public TextView kla;
     String pas;
     String klau;
+    String kl;
+    String ats1;
+    String ats2;
+    String ats3;
     int count = 1;
+
 
 
     @Override
@@ -63,16 +63,29 @@ public class Apklausa extends ListActivity {
         setContentView(R.layout.json_list);
         mydb = new DBHelper(this);
         inboxList = new ArrayList<HashMap<String, String>>();
-        new LoadInbox().execute();
+        TextView vi = (TextView) findViewById(R.id.count);
+        vi.setText("Klausymas: " + String.valueOf(count) + "/3");
 
+        if(isNetworkAvailable() == true){
+            new LoadInbox().execute();
+
+        }else{
+            getData();
+        }
         Button but = (Button) findViewById(R.id.submit);
         but.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 count++;
-                Log.e("Skaiciuoju clickus:", String.valueOf(count));
-                getKlausymas();
-                getAtsakymas();
-                mydb.insertKl(klau,pas);
+                if(isNetworkAvailable() == true){
+                    getKlausymas();
+                    getAtsakymas();
+                    mydb.insertKl(klau,pas);
+
+                }else{
+                    getData();
+                }
+                TextView vi = (TextView) findViewById(R.id.count);
+                vi.setText("Klausymas: " + String.valueOf(count) + "/3");
             }
         });
     }
@@ -93,7 +106,35 @@ public class Apklausa extends ListActivity {
         inboxList = new ArrayList<HashMap<String, String>>();
         new LoadInbox().execute();
         return pas;
+    }
 
+    public void getData(){
+        mydb = new DBHelper(this);
+        inboxList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map = new HashMap<String, String>();
+        mydb.setCount(count);
+        map.put(TAG_TITLE, mydb.selectKl(kl));
+        map.put(TAG_ATS1, mydb.selectAts1(ats1));
+        map.put(TAG_ATS2, mydb.selectAts2(ats2));
+        map.put(TAG_ATS3, mydb.selectAts3(ats3));
+
+        // HashList to ArrayList
+        inboxList.add(map);
+
+        ListAdapter adapter = new SimpleAdapter(
+                Apklausa.this, inboxList,
+                R.layout.klausymas, new String[]{TAG_TITLE, TAG_ATS1, TAG_ATS2, TAG_ATS3},
+                new int[]{R.id.kl, R.id.ats1, R.id.ats2, R.id.ats3});
+        setListAdapter(adapter);
+    }
+
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
             class LoadInbox extends AsyncTask<String, String, String> {

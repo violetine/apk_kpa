@@ -11,8 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.HashMap;
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -27,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_PASS = "passw";
     private static final String KEY_ACTIVE = "active";
+    int ap = 1;
 
 
 
@@ -43,7 +42,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
         db.execSQL("CREATE TABLE apk ("
-                + KEY_ID1 + " INTEGER,"
                 + KEY_KL + " TEXT,"
                 + KEY_ATS + " TEXT, "
                 + KEY_ATS1 + " TEXT, "
@@ -73,16 +71,19 @@ public class DBHelper extends SQLiteOpenHelper {
        this.onCreate(db);
     }
 
-    public void insertUser (String name, String pass, String id){
-
-        Log.e("naujas irasas", name);
-        newUser(name,pass,id);
-
-        //Cursor row = db.rawQuery("SELECT code FROM user WHERE name= '" + name + "'", null);
-
-//        if(row != null) {
-//              setActive(name);
-//        }
+    public boolean activeUser (String name, String c, boolean a){
+        String code;
+        Cursor u = db.rawQuery("SELECT code FROM user WHERE name = '"+ name + "'", null);
+        if (null != u && u.moveToFirst()) {
+            code = u.getString(u.getColumnIndex(KEY_ID1));
+            if(code == c) {
+                a = true;
+                Log.e("useris egzistuoja",c);
+            }else{
+                a = false;
+            }
+        }
+        return a;
     }
 
     public void newUser (String name, String pass, String id){
@@ -94,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("active",a);
 
         db.insert("user", null, contentValues);
-        Log.e("Irasiau viska", name + pass + id + a);
+        Log.e("irasiau useri", name);
 
     }
 
@@ -108,26 +109,35 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public String selectKl(String k){
-        Cursor klau = db.rawQuery("SELECT Pavadinimas FROM apk ", null);
-        k = klau.getString(klau.getColumnIndex("Pavadinimas"));
+         Cursor klau = db.rawQuery("SELECT Pavadinimas FROM apk WHERE rowid = '"+ getCount() + "'", null);
+
+        if (null != klau && klau.moveToFirst()) {
+            k = klau.getString(klau.getColumnIndex(KEY_KL));
+        }
         return k;
     }
 
     public String selectAts1(String a1) {
-        Cursor ats1 = db.rawQuery("SELECT ats1 FROM apk ", null);
-        a1 = ats1.getString(ats1.getColumnIndex("ats1"));
+        Cursor ats1 = db.rawQuery("SELECT Pasirinkimas1 FROM apk WHERE rowid = '"+ getCount() + "'", null);
+        if (null != ats1 && ats1.moveToFirst()) {
+            a1 = ats1.getString(ats1.getColumnIndex(KEY_ATS));
+        }
         return a1;
     }
 
     public String selectAts2(String a2) {
-        Cursor ats2 = db.rawQuery("SELECT ats2 FROM apk ", null);
-        a2 = ats2.getString(ats2.getColumnIndex("ats2"));
+        Cursor ats2 = db.rawQuery("SELECT Pasirinkimas2 FROM apk WHERE rowid = '"+ getCount() + "'", null);
+        if (null != ats2 && ats2.moveToFirst()) {
+            a2 = ats2.getString(ats2.getColumnIndex(KEY_ATS1));
+        }
         return a2;
     }
 
     public String selectAts3(String a3) {
-        Cursor ats3 = db.rawQuery("SELECT ats3 FROM apk ", null);
-        a3 = ats3.getString(ats3.getColumnIndex("ats3"));
+        Cursor ats3 = db.rawQuery("SELECT Pasirinkimas3 FROM apk WHERE rowid = '"+ getCount() + "'", null);
+        if (null != ats3 && ats3.moveToFirst()) {
+            a3 = ats3.getString(ats3.getColumnIndex(KEY_ATS2));
+    }
         return a3;
     }
 
@@ -136,13 +146,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor row = db.rawQuery("SELECT Pavadinimas FROM klausimai WHERE Pavadinimas= '" + kl + "'", null);
 
         if(row != null) {
-
-            Log.e("jau egzistuoja irasas", kl);
             deleteKl();
-            Log.e("istryniau ir irasiau is naujo", kl);
             newAts(kl,ats);
         }else{
-            Log.e("naujas irasas", kl);
             newAts(kl,ats);
         }
         return true;
@@ -159,5 +165,14 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         //db.delete(TABLE_APK1, KEY_KL + "='" + kl + "'", null);
         db.execSQL("delete from "+ TABLE_APK1);
+    }
+
+    public void setCount(int app){
+        ap = app;
+    }
+
+    public int getCount(){
+        return ap;
+
     }
 }
