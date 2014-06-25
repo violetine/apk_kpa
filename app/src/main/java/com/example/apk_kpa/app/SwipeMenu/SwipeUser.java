@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.apk_kpa.app.LogedIn;
 import com.example.apk_kpa.app.LogedUser;
 import com.example.apk_kpa.app.Apklausa;
 import com.example.apk_kpa.app.Mano_duomenys;
@@ -202,7 +203,7 @@ public class SwipeUser extends Activity {
      * */
     private void displayView(int position) {
         userName = getIntent().getExtras().getString("nickas");
-        userEmail = getIntent().getExtras().getString("email");
+        userEmail = LogedIn.email;// getIntent().getExtras().getString("email");
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
