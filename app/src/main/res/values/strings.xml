@@ -15,7 +15,7 @@
     <string-array name="nav_drawer_items">
         <item >Pagrindinis</item>
         <item >Statistika</item>
-        <item >Mano Duomenys</item>
+        <item >Mano duomenys</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -23,6 +23,7 @@
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_people</item>
     </array>
 
     <!-- Content Description -->

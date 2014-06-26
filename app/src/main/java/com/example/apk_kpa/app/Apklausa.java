@@ -126,13 +126,12 @@ public class Apklausa extends ListActivity {
         });
 
         if(String.valueOf(count).equals("4")) {
-            Toast.makeText(getApplicationContext(), "Dėje,bet jau atsakete į šiuos klausymus.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Dėje,bet jau atsakete į klausymus.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),LogedIn.class);
             userName = getIntent().getExtras().getString("nickas");
             intent.putExtra("nickas",userName);
             startActivity(intent);
             finish();
-
         }
 
     }

@@ -83,15 +83,30 @@ public class Login extends Activity {
                     if(a == false){
                         mydb.newUser(name,passwd,code);
                     }
+
                 }else{
-                    mydb.activeUser(name,code,a);
-                    if(a == true){
-                        Intent intent = new Intent(Login.this,LogedIn.class);
-                        intent.putExtra("nickas ",name);
-                        startActivity(intent);
-                    }else{
-                        //mydb.newUser(name,passwd,code);
-                    }
+
+                    try {
+                        mydb.activeUser(name,code,a);
+                        if (a == true) {
+                            Intent intent = new Intent(Login.this, LogedIn.class);
+                            intent.putExtra("nickas ", name);
+                            startActivity(intent);
+                        } else {
+                            // dismiss the progress dialog
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Neaptiktas interneto prisijungimas arba blogi duomenys !", Toast.LENGTH_LONG).show();
+//                            mydb.newUser(name,passwd,code);
+                        }
+                    } catch(Exception e) {runOnUiThread(new Runnable() {
+                        public void run() {
+                            // dismiss the progress dialog
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Neaptiktas interneto prisijungimas arba blogi duomenys !", Toast.LENGTH_LONG).show();
+                        }
+                    });}
+
+
                 }
             }
         });

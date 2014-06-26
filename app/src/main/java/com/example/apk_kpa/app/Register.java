@@ -181,7 +181,7 @@ public class Register extends Activity {
                         public void run() {
                             // dismiss the progress dialog
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "No connection!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Neaptiktas interneto prisijungimas !", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
