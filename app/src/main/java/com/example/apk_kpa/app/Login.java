@@ -74,12 +74,15 @@ public class Login extends Activity {
                 code = e_code.getText().toString();
                 name = e_name.getText().toString();
                 passwd = e_password.getText().toString();
-                mydb.newUser(name,passwd,code);
 
 
                 if(isNetworkAvailable() == true){
                     LoginTask log = new LoginTask();
                     log.execute(url);
+                    mydb.activeUser(name,code,a);
+                    if(a == false){
+                        mydb.newUser(name,passwd,code);
+                    }
                 }else{
                     mydb.activeUser(name,code,a);
                     if(a == true){
@@ -87,7 +90,7 @@ public class Login extends Activity {
                         intent.putExtra("nickas ",name);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(getApplicationContext(), "Blogai įvesti duomenys arba toks vartotojas/ID neegzistuoja !", Toast.LENGTH_LONG).show();
+                        //mydb.newUser(name,passwd,code);
                     }
                 }
             }
