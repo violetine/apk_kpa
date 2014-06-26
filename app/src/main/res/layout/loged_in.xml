@@ -100,7 +100,8 @@
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:background="@drawable/rounded_corner"
-                android:onClick="start_apk"> </Button>
+                android:onClick="start_apk">
+            </Button>
             <Button
                 android:id = "@+id/apklausa2Btn"
                 android:layout_width="fill_parent"

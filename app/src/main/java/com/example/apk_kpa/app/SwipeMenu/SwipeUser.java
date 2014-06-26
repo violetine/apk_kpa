@@ -73,17 +73,17 @@ public class SwipeUser extends Activity {
         super.onCreate(savedInstanceState);
 
         // *snip **/
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(new BroadcastReceiver() {
-
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.d("onReceive","Logout in progress");
-                //At this point you should start the login activity and finish this one
-                finish();
-            }
-        }, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("com.package.ACTION_LOGOUT");
+//        registerReceiver(new BroadcastReceiver() {
+//
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.d("onReceive","Logout in progress");
+//                //At this point you should start the login activity and finish this one
+//                finish();
+//            }
+//        }, intentFilter);
         //** snip **//
 
         // Hide the Title Bar
@@ -168,7 +168,13 @@ public class SwipeUser extends Activity {
 
     public void start_apk (View view) {
 
-        startActivity(new Intent(this, Apklausa.class));
+
+                Intent intent = new Intent(getApplicationContext(),Apklausa.class);
+                intent.putExtra("nickas",userName);
+                startActivity(intent);
+                finish();
+
+
     }
 
     public void logout(View view){

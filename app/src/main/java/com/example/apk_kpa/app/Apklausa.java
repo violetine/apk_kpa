@@ -49,12 +49,13 @@ public class Apklausa extends ListActivity {
     private RadioGroup group1;
     private RadioButton pasirinkimas;
     public TextView kla;
-    String pas = "";
-    String klau = "";
-    String kl = "";
-    String ats1 = "";
-    String ats2 = "";
-    String ats3 = "";
+    String pas;
+    String klau;
+    String kl;
+    String ats1;
+    String ats2;
+    String ats3;
+    public static String userName;
     public static int count = 1;
 
 
@@ -68,7 +69,11 @@ public class Apklausa extends ListActivity {
         mydb = new DBHelper(this);
         inboxList = new ArrayList<HashMap<String, String>>();
         TextView vi = (TextView) findViewById(R.id.count);
-        vi.setText("Klausymas: " + String.valueOf(count) + "/3");
+        if(!String.valueOf(count).equals("4")) {
+            vi.setText("Klausymas: " + String.valueOf(count) + "/3");
+        }else{
+            vi.setText("Klausymas: 3/3");
+        }
 
         if(isNetworkAvailable() == true){
             new LoadInbox().execute();
@@ -85,25 +90,46 @@ public class Apklausa extends ListActivity {
 
                    count++;
 
-                if(isNetworkAvailable() == true){
 
+                if(String.valueOf(count).equals("4")) {
+                    Toast.makeText(getApplicationContext(), "Dėkojame,kad atsakite į klausymus !", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getApplicationContext(),LogedIn.class);
+                    userName = getIntent().getExtras().getString("nickas");
+                    intent.putExtra("nickas",userName);
+                    startActivity(intent);
+
+                    finish();
+
+                }
+
+                if(isNetworkAvailable() == true){
+                    if(!String.valueOf(count).equals("4")) {
                         getKlausymas();
                         getAtsakymas();
-
-                        mydb.insertKl(klau, pas);
+                        if (group1.getCheckedRadioButtonId() > -1) {
+                            mydb.insertKl(klau, pas);
+                        }
+                    }
 
                 }else{
                     getData();
                 }
                 TextView vi = (TextView) findViewById(R.id.count);
+                if(!String.valueOf(count).equals("4")) {
                 vi.setText("Klausymas: " + String.valueOf(count) + "/3");
+                }else{
+                    vi.setText("Klausymas: 3/3");
+                }
             }
 
         });
 
         if(String.valueOf(count).equals("4")) {
-            Toast.makeText(getApplicationContext(), "Dėkojame,kad atsakite į klausymus !", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Apklausa.this,LogedIn.class);
+            Toast.makeText(getApplicationContext(), "Dėje,bet jau atsakete į šiuos klausymus.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),LogedIn.class);
+            userName = getIntent().getExtras().getString("nickas");
+            intent.putExtra("nickas",userName);
             startActivity(intent);
             finish();
 
@@ -115,7 +141,9 @@ public class Apklausa extends ListActivity {
 
         kla = (TextView) findViewById(R.id.kl);
         klau = kla.getText().toString();
-        return klau;
+            return klau;
+
+
     }
 
     public String getAtsakymas() {
@@ -141,7 +169,11 @@ public class Apklausa extends ListActivity {
             inboxList = new ArrayList<HashMap<String, String>>();
             new LoadInbox().execute();
         }
-        return pas;
+        if(!String.valueOf(count).equals("4")) {
+            return pas;
+        } else {
+            return pas = "";
+        }
     }
 
     public void getData(){
@@ -189,8 +221,7 @@ public class Apklausa extends ListActivity {
                  * getting Inbox JSON
                  */
                 protected String doInBackground(String... args) {
-
-                    jsData();
+                        jsData();
                     return null;
                 }
 
