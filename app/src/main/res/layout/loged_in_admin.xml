@@ -74,13 +74,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text = "Apklausa"
-
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
             <Button
                 android:id = "@+id/apklausa2Btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:text = "Apklausa"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
@@ -88,6 +91,8 @@
                 android:id = "@+id/apklausa3Btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:text = "Apklausa"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
@@ -95,6 +100,8 @@
                 android:id = "@+id/apklausa4Btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:text = "Apklausa"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
@@ -102,6 +109,8 @@
                 android:id = "@+id/apklausa5Btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:text = "Apklausa"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
@@ -109,6 +118,8 @@
                 android:id = "@+id/apklausa6Btn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_corner"
                 android:text = "Apklausa"
                 android:textSize="25dp"
                 android:textStyle="bold"> </Button>
