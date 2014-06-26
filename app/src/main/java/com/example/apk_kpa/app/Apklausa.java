@@ -3,10 +3,12 @@ package com.example.apk_kpa.app;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -15,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.apk_kpa.app.database.DBHelper;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -45,13 +49,13 @@ public class Apklausa extends ListActivity {
     private RadioGroup group1;
     private RadioButton pasirinkimas;
     public TextView kla;
-    String pas;
-    String klau;
-    String kl;
-    String ats1;
-    String ats2;
-    String ats3;
-    int count = 1;
+    String pas = "";
+    String klau = "";
+    String kl = "";
+    String ats1 = "";
+    String ats2 = "";
+    String ats3 = "";
+    public static int count = 1;
 
 
 
@@ -72,14 +76,21 @@ public class Apklausa extends ListActivity {
         }else{
             getData();
         }
+
         Button but = (Button) findViewById(R.id.submit);
         but.setOnClickListener(new View.OnClickListener() {
+
+            @Override
             public void onClick(View v) {
-                count++;
+
+                   count++;
+
                 if(isNetworkAvailable() == true){
-                    getKlausymas();
-                    getAtsakymas();
-                    mydb.insertKl(klau,pas);
+
+                        getKlausymas();
+                        getAtsakymas();
+
+                        mydb.insertKl(klau, pas);
 
                 }else{
                     getData();
@@ -87,7 +98,17 @@ public class Apklausa extends ListActivity {
                 TextView vi = (TextView) findViewById(R.id.count);
                 vi.setText("Klausymas: " + String.valueOf(count) + "/3");
             }
+
         });
+
+        if(String.valueOf(count).equals("4")) {
+            Toast.makeText(getApplicationContext(), "Dėkojame,kad atsakite į klausymus !", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Apklausa.this,LogedIn.class);
+            startActivity(intent);
+            finish();
+
+        }
+
     }
 
     public String getKlausymas(){
@@ -97,14 +118,29 @@ public class Apklausa extends ListActivity {
         return klau;
     }
 
-    public String getAtsakymas(){
+    public String getAtsakymas() {
+
         group1 = (RadioGroup) findViewById(R.id.group1);
         int selectedId = group1.getCheckedRadioButtonId();
         pasirinkimas = (RadioButton) findViewById(selectedId);
-        pas = pasirinkimas.getText().toString();
-        mydb = new DBHelper(this);
-        inboxList = new ArrayList<HashMap<String, String>>();
-        new LoadInbox().execute();
+
+        if(String.valueOf(count).equals("3")){
+            Button but = (Button) findViewById(R.id.submit);
+
+            but.setText("Patvirtinti atsakymus");
+        }
+
+
+
+        if (group1.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(getApplicationContext(), "Nepasirinkote atsakymo !", Toast.LENGTH_LONG).show();
+            count --;
+        } else {
+            pas = pasirinkimas.getText().toString();
+            mydb = new DBHelper(this);
+            inboxList = new ArrayList<HashMap<String, String>>();
+            new LoadInbox().execute();
+        }
         return pas;
     }
 
