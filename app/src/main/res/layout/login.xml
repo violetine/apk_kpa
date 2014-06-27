@@ -68,8 +68,7 @@
         android:layout_height="wrap_content"
         android:text="Slaptažodis:"
         android:textStyle="bold"
-        android:textColor="#ff5a5a5a"
- />
+        android:textColor="#ff5a5a5a" />
 
     <!--pass text field-->
     <EditText
@@ -77,8 +76,9 @@
         android:inputType="textPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:password="true" />
-        </LinearLayout>
+        />
+     </LinearLayout>
+
     </ScrollView>
 
 

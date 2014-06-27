@@ -5,12 +5,14 @@ import android.app.Activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +27,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.apk_kpa.app.JSONParser;
 import com.example.apk_kpa.app.LogedIn;
 import com.example.apk_kpa.app.LogedUser;
 import com.example.apk_kpa.app.Apklausa;
@@ -35,7 +38,14 @@ import com.example.apk_kpa.app.Statistika;
 import com.example.apk_kpa.app.adapter.NavDrawerListAdapter;
 import com.example.apk_kpa.app.model.NavDrawerItem;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -66,11 +76,21 @@ public class SwipeUser extends Activity {
 
     public  String userPoints,userQuestions;
 
+    private static final String INBOX_URL = "http://mokslai.ger.us.lt/pridetiKlausimaV2.php";
+    private static final String TAG_MESSAGES = "turinys";
+
+    private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    ArrayList<HashMap<String, String>> inboxList;
+    JSONArray inbox = null;
+    public static int LIMIT;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
 
         // *snip **/
 //        IntentFilter intentFilter = new IntentFilter();
@@ -91,7 +111,7 @@ public class SwipeUser extends Activity {
 
         setContentView(R.layout.kurti_apklausa);
 
-
+        new jsCountRec().execute();
 
 
 //        Bundle bundle = new Bundle();
@@ -171,6 +191,7 @@ public class SwipeUser extends Activity {
 
                 Intent intent = new Intent(getApplicationContext(),Apklausa.class);
                 intent.putExtra("nickas",userName);
+
                 startActivity(intent);
                 finish();
 
@@ -183,6 +204,78 @@ public class SwipeUser extends Activity {
         broadcastIntent.setAction("com.package.ACTION_LOGOUT");
         sendBroadcast(broadcastIntent);
         startActivity(new Intent(this, Login.class));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    public class jsCountRec extends AsyncTask<Void, Void, Boolean> {
+
+
+
+        /**
+         * getting Inbox JSON
+         */
+
+        @Override
+        protected Boolean doInBackground(Void... args) {
+
+            LoadTableRec();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pDialog = new ProgressDialog(Apklausa.this);
+//            pDialog.setMessage("Kraunasi...");
+//            pDialog.setIndeterminate(false);
+//            pDialog.setCancelable(false);
+//            pDialog.show();
+        }
+
+
+
+        protected void LoadTableRec()
+        {
+
+            ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
+
+            // Kreipimosi ID i WebServisa
+            res.add(new BasicNameValuePair("action","allCount"));
+
+            JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "POST",res);
+
+
+            try {
+                inbox = json.getJSONArray(TAG_MESSAGES);
+                // visi duomenys
+                for (int i = 0; i < inbox.length(); i++) {
+                    JSONObject c = inbox.getJSONObject(i);
+
+                    Integer TableCount = c.getInt("allCount");
+                    Integer limit = TableCount + 1;
+                    Log.e("TableCOUNT: ","" + TableCount);
+                    LIMIT = limit;
+                    Log.e("LIMIT: ","" + limit);
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+                    // dismiss
+//                    pDialog.dismiss();
+
+
+
+        }
+
     }
 
 

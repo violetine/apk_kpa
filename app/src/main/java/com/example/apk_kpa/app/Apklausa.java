@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apk_kpa.app.SwipeMenu.SwipeUser;
 import com.example.apk_kpa.app.database.DBHelper;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -27,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by VIO on 6/8/2014.
@@ -49,31 +52,32 @@ public class Apklausa extends ListActivity {
     private RadioGroup group1;
     private RadioButton pasirinkimas;
     public TextView kla;
-    String pas;
-    String klau;
-    String kl;
-    String ats1;
-    String ats2;
-    String ats3;
+    public static String pas;
+    public static String klau;
+    public static String kl;
+    public static String ats1;
+    public static String ats2;
+    public static String ats3;
     public static String userName;
-    public static int count = 1;
+    public static Random ran;
+    public static int count = 0,i1,QID = 1,LIMIT = SwipeUser.LIMIT;
+//    public static String ; // Question show limit (Questions)+1
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         // Hide the Title Bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.json_list);
-        mydb = new DBHelper(this);
-        inboxList = new ArrayList<HashMap<String, String>>();
-        TextView vi = (TextView) findViewById(R.id.count);
-        if(!String.valueOf(count).equals("4")) {
-            vi.setText("Klausymas: " + String.valueOf(count) + "/3");
-        }else{
-            vi.setText("Klausymas: 3/3");
-        }
+
+
+
+        userName = getIntent().getExtras().getString("nickas");
 
         if(isNetworkAvailable() == true){
             new LoadInbox().execute();
@@ -82,50 +86,78 @@ public class Apklausa extends ListActivity {
             getData();
         }
 
+        mydb = new DBHelper(this);
+        inboxList = new ArrayList<HashMap<String, String>>();
+        TextView vi = (TextView) findViewById(R.id.count);
+        if(QID != LIMIT) {
+            int Limit_of = LIMIT - 1;
+            vi.setText("Klausymas: " + QID + "/" + Limit_of );
+        }else{
+            vi.setText("Klausymas:  - / -");
+        }
+
+
+
         Button but = (Button) findViewById(R.id.submit);
+
         but.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                   count++;
+                count++;
+                QID++;
 
+                // Random Taskai
+                ran = new Random();
+                i1 = ran.nextInt(80 - 65) + 150;
+                //
+                if (QID == LIMIT) {
 
-                if(String.valueOf(count).equals("4")) {
                     Toast.makeText(getApplicationContext(), "Dėkojame,kad atsakite į klausymus !", Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(getApplicationContext(),LogedIn.class);
-                    userName = getIntent().getExtras().getString("nickas");
-                    intent.putExtra("nickas",userName);
+                    Intent intent = new Intent(getApplicationContext(), LogedIn.class);
+                    intent.putExtra("nickas", userName);
                     startActivity(intent);
-
                     finish();
-
                 }
 
-                if(isNetworkAvailable() == true){
-                    if(!String.valueOf(count).equals("4")) {
+
+                if (isNetworkAvailable() == true) {
+
+                    if (QID < LIMIT + 1) {
                         getKlausymas();
                         getAtsakymas();
                         if (group1.getCheckedRadioButtonId() > -1) {
                             mydb.insertKl(klau, pas);
                         }
+                        if (QID <= LIMIT) {
+                            if (!pas.isEmpty() && QID <= LIMIT) {
+                                new PostDataToWebSerivce().execute();
+                            }
+                        }
                     }
 
-                }else{
+
+                } else {
                     getData();
                 }
+
+
                 TextView vi = (TextView) findViewById(R.id.count);
-                if(!String.valueOf(count).equals("4")) {
-                vi.setText("Klausymas: " + String.valueOf(count) + "/3");
+                if(QID != LIMIT) {
+                    int Limit_of = LIMIT - 1;
+                    vi.setText("Klausymas: " + QID + "/" + Limit_of );
                 }else{
-                    vi.setText("Klausymas: 3/3");
+                    vi.setText("Klausymas:  - / -");
                 }
             }
 
         });
 
-        if(String.valueOf(count).equals("4")) {
+
+
+        if(QID >= LIMIT) {
+
             Toast.makeText(getApplicationContext(), "Dėje,bet jau atsakete į klausymus.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),LogedIn.class);
             userName = getIntent().getExtras().getString("nickas");
@@ -151,7 +183,7 @@ public class Apklausa extends ListActivity {
         int selectedId = group1.getCheckedRadioButtonId();
         pasirinkimas = (RadioButton) findViewById(selectedId);
 
-        if(String.valueOf(count).equals("3")){
+        if(QID == LIMIT-1){
             Button but = (Button) findViewById(R.id.submit);
 
             but.setText("Patvirtinti atsakymus");
@@ -161,25 +193,28 @@ public class Apklausa extends ListActivity {
 
         if (group1.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), "Nepasirinkote atsakymo !", Toast.LENGTH_LONG).show();
-            count --;
+            QID --;
+            count--;
         } else {
+
             pas = pasirinkimas.getText().toString();
             mydb = new DBHelper(this);
             inboxList = new ArrayList<HashMap<String, String>>();
-            new LoadInbox().execute();
+
+             new LoadInbox().execute();
+
+
         }
-        if(!String.valueOf(count).equals("4")) {
+
             return pas;
-        } else {
-            return pas = "";
-        }
+
     }
 
     public void getData(){
         mydb = new DBHelper(this);
         inboxList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map = new HashMap<String, String>();
-        mydb.setCount(count);
+        mydb.setCount(QID);
         map.put(TAG_TITLE, mydb.selectKl(kl));
         map.put(TAG_ATS1, mydb.selectAts1(ats1));
         map.put(TAG_ATS2, mydb.selectAts2(ats2));
@@ -196,7 +231,6 @@ public class Apklausa extends ListActivity {
     }
 
 
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -204,6 +238,7 @@ public class Apklausa extends ListActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+//////////////////////////////////////////////////////////////////////////////////////
             class LoadInbox extends AsyncTask<String, String, String> {
 
                 @Override
@@ -220,7 +255,11 @@ public class Apklausa extends ListActivity {
                  * getting Inbox JSON
                  */
                 protected String doInBackground(String... args) {
+
+
                         jsData();
+
+
                     return null;
                 }
 
@@ -229,7 +268,7 @@ public class Apklausa extends ListActivity {
                     ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
 
                     // Kreipimosi ID i WebServisa
-                    res.add(new BasicNameValuePair("res",String.valueOf(count)));
+                    res.add(new BasicNameValuePair("res",String.valueOf(QID)));
 
                     JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "POST",res);
 
@@ -262,6 +301,11 @@ public class Apklausa extends ListActivity {
                     }
                     return null;
                 }
+
+
+
+
+
                 protected void onPostExecute(String file_url) {
                     // dismiss
                     pDialog.dismiss();
@@ -283,5 +327,73 @@ public class Apklausa extends ListActivity {
             }
 
      }
+
+///////////////////////////////////////////////////////////////////////////////////////
+    public class PostDataToWebSerivce extends AsyncTask<Void, Void, Boolean> {
+
+
+
+        /**
+         * getting Inbox JSON
+         */
+
+        @Override
+        protected Boolean doInBackground(Void... args) {
+
+            LoadInboxTOPOST();
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pDialog = new ProgressDialog(Apklausa.this);
+//            pDialog.setMessage("Kraunasi...");
+//            pDialog.setIndeterminate(false);
+//            pDialog.setCancelable(false);
+//            pDialog.show();
+        }
+
+
+
+        protected void LoadInboxTOPOST()
+        {
+
+            ArrayList<NameValuePair> res = new ArrayList<NameValuePair>();
+
+            // Kreipimosi ID i WebServisa
+            res.add(new BasicNameValuePair("res",String.valueOf(QID)));
+            res.add(new BasicNameValuePair("klID",String.valueOf(count)));
+
+            res.add(new BasicNameValuePair("pasirnk",pas));
+            res.add(new BasicNameValuePair("vardas",Apklausa.userName));
+
+            res.add(new BasicNameValuePair("atsake",String.valueOf(QID)));
+            res.add(new BasicNameValuePair("taskai",String.valueOf(i1)));
+
+
+            jsonParser.makeHttpRequest(INBOX_URL, "POST", res);
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // dismiss
+                    pDialog.dismiss();
+
+                }
+            });
+
+
+        }
+
+    }
+
+
+
 }
 

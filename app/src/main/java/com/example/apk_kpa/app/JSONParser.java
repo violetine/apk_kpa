@@ -46,7 +46,7 @@ public class JSONParser {
 
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
-                httpPost.setEntity(new UrlEncodedFormEntity(params));
+                httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 HttpEntity httpEntity = httpResponse.getEntity();
@@ -55,7 +55,7 @@ public class JSONParser {
             }else if(method == "GET"){
                 // request method is GET
                 DefaultHttpClient httpClient = new DefaultHttpClient();
-                String paramString = URLEncodedUtils.format(params, "utf-8");
+                String paramString = URLEncodedUtils.format(params, "UTF-8");
                 url += "?" + paramString;
                 HttpGet httpGet = new HttpGet(url);
 
@@ -74,21 +74,27 @@ public class JSONParser {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
+                    is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
             is.close();
-            json = sb.toString();
+
+                json = sb.toString();
+
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
 
         // JSON object
         try {
-            jObj = new JSONObject(json);
+            if(json.toString().length() > 0) {
+                jObj = new JSONObject(json);
+            }else {
+                jObj = null;
+            }
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }

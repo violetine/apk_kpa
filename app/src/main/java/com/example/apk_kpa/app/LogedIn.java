@@ -43,12 +43,13 @@ public class LogedIn extends Activity {
     JSONArray inbox = null;
 
     private static final String INBOX_URL = "http://mokslai.ger.us.lt/getUserInfo.php";
+    private static final String INBOX_URL_TABLE = "http://mokslai.ger.us.lt/pridetiKlausimaV2.php";
     private static final String TAG_MESSAGES = "turinys";
     private static final String TAG_EMAIL = "email";
 
     private static final String TAG_POINTS = "taskai";
     private static final String TAG_QUESTIONS = "atsake";
-
+    public static int LIMIT = 0;
 
     private Intent a;
 
@@ -60,7 +61,12 @@ public class LogedIn extends Activity {
         super.onCreate(savedInstanceState);
         data = getIntent().getExtras().getString("nickas");
 
+
+
         inboxList = new ArrayList<HashMap<String, String>>();
+
+
+
         new LoadInbox().execute();
 
         Intent intent = new Intent(this, SwipeUser.class);
@@ -68,21 +74,23 @@ public class LogedIn extends Activity {
 
         intent.putExtra("nickas",data);
 
-
         startActivity(intent);
 
 
     }
-
+//////////////////////////////////////////////////////////////////////////////
     public class LoadInbox extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            jsData();
-            return null;
-        }
 
-        @Override
+                    jsData();
+
+
+                return null;
+            }
+
+            @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(LogedIn.this);
@@ -104,7 +112,7 @@ public class LogedIn extends Activity {
             // Kreipimosi ID i WebServisa
             res.add(new BasicNameValuePair("name",data));
 
-            JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "GET",res);
+            JSONObject json = jsonParser.makeHttpRequest(INBOX_URL, "POST",res);
 
 
             try {
@@ -147,6 +155,8 @@ public class LogedIn extends Activity {
         }
 
     }
+
+
 
 
 
