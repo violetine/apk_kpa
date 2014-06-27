@@ -52,7 +52,7 @@ public class Apklausa extends ListActivity {
     private RadioGroup group1;
     private RadioButton pasirinkimas;
     public TextView kla;
-    public static String pas;
+    public static String pas = "";
     public static String klau;
     public static String kl;
     public static String ats1;
@@ -125,13 +125,16 @@ public class Apklausa extends ListActivity {
                 if (isNetworkAvailable() == true) {
 
                     if (QID < LIMIT + 1) {
+
                         getKlausymas();
                         getAtsakymas();
+
                         if (group1.getCheckedRadioButtonId() > -1) {
                             mydb.insertKl(klau, pas);
                         }
                         if (QID <= LIMIT) {
-                            if (!pas.isEmpty() && QID <= LIMIT) {
+
+                            if (!pas.equals(null) && QID <= LIMIT) {
                                 new PostDataToWebSerivce().execute();
                             }
                         }
@@ -183,16 +186,17 @@ public class Apklausa extends ListActivity {
         int selectedId = group1.getCheckedRadioButtonId();
         pasirinkimas = (RadioButton) findViewById(selectedId);
 
+
         if(QID == LIMIT-1){
             Button but = (Button) findViewById(R.id.submit);
-
             but.setText("Patvirtinti atsakymus");
         }
 
 
 
-        if (group1.getCheckedRadioButtonId() == -1) {
+        if (pasirinkimas.equals(null)) {
             Toast.makeText(getApplicationContext(), "Nepasirinkote atsakymo !", Toast.LENGTH_LONG).show();
+
             QID --;
             count--;
         } else {
